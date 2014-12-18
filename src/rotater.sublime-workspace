@@ -60,50 +60,18 @@
 	"buffers":
 	[
 		{
-			"file": "draw.py",
-			"settings":
-			{
-				"buffer_size": 9137,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "gamecontrol.py",
-			"settings":
-			{
-				"buffer_size": 7566,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "main.py",
 			"settings":
 			{
-				"buffer_size": 1921,
+				"buffer_size": 2221,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "menucontrol.py",
+			"file": "draw.py",
 			"settings":
 			{
-				"buffer_size": 2609,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "menudraw.py",
-			"settings":
-			{
-				"buffer_size": 2763,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "playercontrol.py",
-			"settings":
-			{
-				"buffer_size": 1404,
+				"buffer_size": 9150,
 				"line_ending": "Windows"
 			}
 		}
@@ -132,6 +100,15 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/cameracontrols.py",
+		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/addSquare.png",
+		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/playercontrol.py",
+		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/main.py",
+		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/gamecontrol.py",
+		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/draw.py",
+		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/menucontrol.py",
+		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/menudraw.py",
+		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/gameglobals.py",
 		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/Rotater/treemanager.py",
 		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/Rotater/keyinput.py",
 		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/Rotater/playercontrol.py",
@@ -155,7 +132,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 90.0,
 		"where_history":
 		[
 		]
@@ -165,6 +142,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"NEXT",
 			"ctrl+shift+s"
 		],
 		"highlight": true,
@@ -183,23 +161,23 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "draw.py",
+					"file": "main.py",
 					"settings":
 					{
-						"buffer_size": 9137,
+						"buffer_size": 2221,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2240,
-								2240
+								1878,
+								1878
 							]
 						],
 						"settings":
@@ -208,25 +186,25 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 855.0,
+						"translation.y": 1242.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "gamecontrol.py",
+					"file": "draw.py",
 					"settings":
 					{
-						"buffer_size": 7566,
+						"buffer_size": 9150,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7083,
-								7083
+								5001,
+								5001
 							]
 						],
 						"settings":
@@ -235,115 +213,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4325.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "main.py",
-					"settings":
-					{
-						"buffer_size": 1921,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1143,
-								1143
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 270.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "menucontrol.py",
-					"settings":
-					{
-						"buffer_size": 2609,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2498,
-								2498
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "menudraw.py",
-					"settings":
-					{
-						"buffer_size": 2763,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								712,
-								712
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 90.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "playercontrol.py",
-					"settings":
-					{
-						"buffer_size": 1404,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								371,
-								371
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2416.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

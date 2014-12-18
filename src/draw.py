@@ -63,9 +63,9 @@ offset = [gameglobals.size[0]//2, gameglobals.size[1]*5//11]
 balanceYOffset = 30
 normalColours = False
 
-font = pygame.font.SysFont(None, 24)
-statsFont = pygame.font.SysFont(None, 20)
-opsFont = pygame.font.SysFont(None, 22)
+font = pygame.font.SysFont("consolas", 20)
+statsFont = pygame.font.SysFont("verdana", 16)
+opsFont = pygame.font.SysFont("verdana", 18)
 #font = pygame.freetype.Font("font.ttf", 12)
 
 drawOther = lambda : None
@@ -180,7 +180,7 @@ def drawUI():
 
 		if i == 0:
 			if graphics.nextText == None:
-				graphics.nextText = opsFont.render("NEXT", True, TEXT_COLOUR)
+				graphics.nextText = font.render("NEXT", True, TEXT_COLOUR)
 			textPos = [pos[0]-graphics.nextText.get_width()//2,
 						pos[1]-graphics.nextText.get_height()//2+27]
 			screen.blit(graphics.nextText, textPos)

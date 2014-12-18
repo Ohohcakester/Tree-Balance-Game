@@ -75,17 +75,37 @@ def initialiseMenu():
 def menuUpdate():
 	menucontrol.update()
 
-		
-def main():
-	global inMenu
-	initialiseMenu()
-	while 1:
-		eventRead()
-		if inMenu: menuUpdate()
-		else: gameUpdate()
 
-		if inMenu: menudraw.drawMenuFrame()
-		else: draw.drawGameFrame()
+def mainUpdate(willDraw):
+	eventRead()
+	if inMenu: menuUpdate()
+	else: gameUpdate()
+
+	if (willDraw):
+		if inMenu:
+			menudraw.drawMenuFrame()
+		else:
+			draw.drawGameFrame()
+
+
+def main():
+	global inMenu, timer
+	initialiseMenu()
+
+	excessTime = 0
+	lastFrameTime = 0
+
+	while True:
+		frameTime = pygame.time.get_ticks()
+		excessTime += frameTime - lastFrameTime - 20
+		lastFrameTime = frameTime
+
+		if (excessTime > 50):
+			mainUpdate(False)
+			excessTime -= 50
+		else:
+			mainUpdate(True)
+
 		pygame.time.delay(20)
 	
 main()

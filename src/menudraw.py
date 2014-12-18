@@ -11,7 +11,7 @@ drawMenu = [lambda screen, selection, renders : drawMenu_main(screen, selection,
 			lambda screen, selection, renders : drawMenu_standard(screen, selection, renders),
 			lambda screen, selection, renders : drawMenu_endless(screen, selection, renders)]
 
-font = pygame.font.SysFont(None, 32)
+font = pygame.font.SysFont("verdana", 32)
 
 class MenuGraphics:
 
