@@ -60,10 +60,10 @@
 	"buffers":
 	[
 		{
-			"file": "main.py",
+			"file": "menucontrol.py",
 			"settings":
 			{
-				"buffer_size": 2221,
+				"buffer_size": 2634,
 				"line_ending": "Windows"
 			}
 		},
@@ -71,7 +71,23 @@
 			"file": "draw.py",
 			"settings":
 			{
-				"buffer_size": 9150,
+				"buffer_size": 9055,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "keyinput.py",
+			"settings":
+			{
+				"buffer_size": 693,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "gameglobals.py",
+			"settings":
+			{
+				"buffer_size": 182,
 				"line_ending": "Windows"
 			}
 		}
@@ -100,14 +116,14 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/draw.py",
+		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/menudraw.py",
+		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/gamecontrol.py",
+		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/menucontrol.py",
+		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/main.py",
 		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/cameracontrols.py",
 		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/addSquare.png",
 		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/playercontrol.py",
-		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/main.py",
-		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/gamecontrol.py",
-		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/draw.py",
-		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/menucontrol.py",
-		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/menudraw.py",
 		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/TreeBalancer/src/gameglobals.py",
 		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/Rotater/treemanager.py",
 		"/C/Users/Oh/Desktop/Programming/OhGit/PyGame/Rotater/keyinput.py",
@@ -132,7 +148,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 90.0,
+		"height": 0.0,
 		"where_history":
 		[
 		]
@@ -161,23 +177,23 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "main.py",
+					"file": "menucontrol.py",
 					"settings":
 					{
-						"buffer_size": 2221,
+						"buffer_size": 2634,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1878,
-								1878
+								325,
+								326
 							]
 						],
 						"settings":
@@ -186,7 +202,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1242.0,
+						"translation.y": 45.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -196,15 +212,15 @@
 					"file": "draw.py",
 					"settings":
 					{
-						"buffer_size": 9150,
+						"buffer_size": 9055,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5001,
-								5001
+								1968,
+								1968
 							]
 						],
 						"settings":
@@ -213,7 +229,60 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2416.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "keyinput.py",
+					"settings":
+					{
+						"buffer_size": 693,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								693,
+								693
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "gameglobals.py",
+					"settings":
+					{
+						"buffer_size": 182,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								182,
+								182
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

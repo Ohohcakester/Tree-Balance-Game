@@ -4,23 +4,23 @@ pygame.font.init()
 class Graphics:
 
 	def __init__(self):
-		self.background = pygame.image.load("bggraphic.png")
+		self.background = pygame.image.load("assets/bggraphic.png")
 		bgRect = self.background.get_rect()
 		self.bgHalfSize = [bgRect[2]//2, bgRect[3]//2]
 		
-		self.node_unselected = pygame.image.load("node.png")
-		self.node_selected = pygame.image.load("nodeSelected.png")
+		self.node_unselected = pygame.image.load("assets/node.png")
+		self.node_selected = pygame.image.load("assets/nodeSelected.png")
 		nodeRect = self.node_selected.get_rect()
 		self.nodeHalfSize = nodeRect[2]//2
 
-		self.nodeGlow = pygame.image.load("nodeglow.png")
+		self.nodeGlow = pygame.image.load("assets/nodeglow.png")
 		nodeGlowRect = self.nodeGlow.get_rect()
 		self.nodeGlowHalfSize = nodeGlowRect[2]//2
 
-		self.uiBar = pygame.image.load("uibar.png")
+		self.uiBar = pygame.image.load("assets/uibar.png")
 
-		self.addSquare = pygame.image.load("addSquare.png")
-		self.deleteSquare = pygame.image.load("deleteSquare.png")
+		self.addSquare = pygame.image.load("assets/addSquare.png")
+		self.deleteSquare = pygame.image.load("assets/deleteSquare.png")
 		squareRect = self.addSquare.get_rect()
 		self.squareHalfSize = squareRect[2]//2
 
@@ -36,24 +36,26 @@ class Graphics:
 
 	def initialiseTutorialText(self):
 		self.tutorialImages = [
-			pygame.image.load("tutorialPanel1.png"),
-			pygame.image.load("tutorialPanel2.png"),
-			pygame.image.load("tutorialPanel3.png"),
-			pygame.image.load("tutorialPanel4.png"),
-			pygame.image.load("tutorialPanel5.png"),
-			pygame.image.load("tutorialPanel6.png"),
-			pygame.image.load("tutorialPanel7.png"),
-			pygame.image.load("tutorialPanel8.png")]
+			pygame.image.load("assets/tutorialPanel1.png"),
+			pygame.image.load("assets/tutorialPanel2.png"),
+			pygame.image.load("assets/tutorialPanel3.png"),
+			pygame.image.load("assets/tutorialPanel4.png"),
+			pygame.image.load("assets/tutorialPanel5.png"),
+			pygame.image.load("assets/tutorialPanel6.png"),
+			pygame.image.load("assets/tutorialPanel7.png"),
+			pygame.image.load("assets/tutorialPanel8.png")]
 		self.tutorialPanelHeight = self.tutorialImages[0].get_height()
+
+		self.creditsText = None
 
 
 	def gameOver(self, isVictory):
-		self.node_unselected = pygame.image.load("nodeDead.png")
-		self.node_selected = pygame.image.load("nodeSelectedDead.png")
+		self.node_unselected = pygame.image.load("assets/nodeDead.png")
+		self.node_selected = pygame.image.load("assets/nodeSelectedDead.png")
 		if isVictory:
-			self.gameOverMessage = pygame.image.load("victory.png")
+			self.gameOverMessage = pygame.image.load("assets/victory.png")
 		else:
-			self.gameOverMessage = pygame.image.load("defeat.png")
+			self.gameOverMessage = pygame.image.load("assets/defeat.png")
 
 		messageRect = self.gameOverMessage.get_rect()
 		self.messageHalfSize = [messageRect[2]//2, messageRect[3]//2]
@@ -297,18 +299,8 @@ def drawTutorialText():
 	position = [0, size[1] - graphics.tutorialPanelHeight]
 	screen.blit(graphics.tutorialImages[index], position)
 
-"""
-	if graphics.tutorialTexts[textIndex] == None:
-		lines = graphics.tutorialTextMessages[textIndex]
-		texts = []
-		for i in range(0,len(lines)):
-			texts.append(font.render(lines[i], True, TEXT_COLOUR, BACKGROUND_COLOUR))
-		graphics.tutorialTexts[textIndex] = texts
-	else:
-		texts = graphics.tutorialTexts[textIndex]
-
-	for i in range(0,len(texts)):
-		position = [(size[0] - texts[i].get_width())//2,
-					size[1]-100 + 30*i]
-		screen.blit(texts[i], position)
-"""
+	if index == 7:
+		if graphics.creditsText == None:
+			graphics.creditsText = font.render("Made by Oh", True, [170,0,132])
+		position = [size[0] - 130, size[1]-35]
+		screen.blit(graphics.creditsText, position)

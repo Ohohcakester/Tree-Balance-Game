@@ -13,7 +13,7 @@ class GameStats:
 		self.cooldown = rate
 		self.gameExited = False
 		self.gameOver = False
-		self.cooldownTimer = rate
+		self.cooldownTimer = 30
 
 	def numOperations(self):
 		return gameglobals.controller.queue.opCount
@@ -288,9 +288,9 @@ def hpDrain():
 	return True
 
 
-def initialiseStandard(rate, size):
+def initialiseStandard(rate, size, hp):
 	global controllerUpdate
-	gameglobals.gameStats = GameStats(1000, rate)
+	gameglobals.gameStats = GameStats(hp, rate)
 	gameglobals.controller = OperationController(size)
 	controllerUpdate = lambda : update_standard()
 

@@ -36,7 +36,7 @@ def initialiseGame(args, mode):
 	cameracontrols.initialise()
 
 	if mode == 0: # standard
-		gamecontrol.initialiseStandard(args[0], args[1])
+		gamecontrol.initialiseStandard(args[0], args[1], args[2])
 	elif mode == 1: # endless
 		gamecontrol.initialiseEndless(args[0], args[1])
 	elif mode == 2: # puzzle
@@ -67,7 +67,7 @@ def initialiseMenu():
 	global inMenu
 	inMenu = True
 	menudraw.initialise()
-	menucontrol.initialise(lambda rate, size: initialiseGame([rate, size], 0),
+	menucontrol.initialise(lambda rate, size, hp: initialiseGame([rate, size, hp], 0),
 							lambda rate, hp: initialiseGame([rate, hp], 1),
 							None,
 							lambda : initialiseGame(None, 3))

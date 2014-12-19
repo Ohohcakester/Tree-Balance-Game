@@ -30,10 +30,10 @@ class MenuVars:
 		operations[0][1] = lambda : self.goToMenu(MenuScreen.mode_endless)
 		operations[0][2] = lambda : start_tutorial()
 
-		operations[1][0] = lambda : start_standard(90, 20)
-		operations[1][1] = lambda : start_standard(80, 30)
-		operations[1][2] = lambda : start_standard(70, 40)
-		operations[1][3] = lambda : start_standard(60, 80)
+		operations[1][0] = lambda : start_standard(130, 20, 2200)
+		operations[1][1] = lambda : start_standard(90, 30, 1600)
+		operations[1][2] = lambda : start_standard(70, 40, 1000)
+		operations[1][3] = lambda : start_standard(60, 80, 1000)
 
 		operations[2][0] = lambda : start_endless(60, 6000)
 		operations[2][1] = lambda : start_endless(40, 4000) 

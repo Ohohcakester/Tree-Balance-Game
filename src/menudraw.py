@@ -16,7 +16,7 @@ font = pygame.font.SysFont("verdana", 32)
 class MenuGraphics:
 
 	def __init__(self):
-		self.background = pygame.image.load("menubg.png")
+		self.background = pygame.image.load("assets/menubg.png")
 
 
 graphics = None
