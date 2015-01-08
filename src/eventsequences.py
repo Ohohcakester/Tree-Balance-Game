@@ -5,6 +5,9 @@ def initialise(stage):
 	#1... = stage i (puzzle mode)
 	if stage == -1:
 		gameglobals.eventSequence = TutorialSequence()
+	elif stage >= 1:
+		gameglobals.eventSequence = PuzzleSequence(stage)
+
 
 
 class TutorialSequence(gameeventsequence.EventSequence):
@@ -34,18 +37,6 @@ class TutorialSequence(gameeventsequence.EventSequence):
 
 	def defineEvents(self):
 		self.addEvent(0, lambda : self.hpDrained(), lambda : self.t1_complete())
-
-	def setPromptText(self, message):
-		gameglobals.gameStats.setPromptText(message)
-
-	def clearPromptText(self):
-		gameglobals.gameStats.clearPromptText()
-
-	def pauseQueue(self):
-		gameglobals.gameStats.pauseCooldown()
-
-	def resumeQueue(self):
-		gameglobals.gameStats.resumeCooldown()
 
 	def setTimer(self, frames):
 		self.timerTime = frames
@@ -147,3 +138,41 @@ class TutorialSequence(gameeventsequence.EventSequence):
 		self.setPromptText('Congratulations! You have completed the tutorial!')
 		self.resumeQueue()
 
+
+
+
+class PuzzleSequence(gameeventsequence.EventSequence):
+
+	def __init__(self, stage):
+		self.stage = stage
+		gameeventsequence.EventSequence.__init__(self)
+
+
+	def start(self):
+		gameglobals.gameStats = gamecontrol.GameStats(50, 20)
+		gameglobals.controller = None
+		gameglobals.opQueue = gamecontrol.OperationQueue()
+		self.pauseQueue()
+		self.setupStage(self.stage)
+
+		self.setPromptText('Work in progress... Nothing to see here.')
+
+	def setupStage(self, stage):
+		if stage == 1:
+			gameglobals.tree.add(1)
+			gameglobals.tree.add(2)
+			gameglobals.tree.add(3)
+			gameglobals.tree.add(7)
+			gameglobals.tree.add(6)
+			gameglobals.tree.add(5)
+			gameglobals.tree.add(4)
+			gameglobals.tree.add(3)
+		elif stage == 2:
+			gameglobals.tree.add(8)
+			gameglobals.tree.add(4)
+			gameglobals.tree.add(2)
+			gameglobals.tree.add(6)
+			gameglobals.tree.add(1)
+			gameglobals.tree.add(3)
+			gameglobals.tree.add(5)
+			gameglobals.tree.add(7)

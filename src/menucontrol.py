@@ -43,7 +43,8 @@ class MenuVars:
 		operations[2][2] = lambda : start_endless(20, 3000)
 
 		for i in range(0,self.numOptions[3]):
-			operations[3][i] = lambda : start_puzzle(i+1)
+			target = i+1
+			operations[3][i] = (lambda target : lambda : start_puzzle(target))(target)
 
 		return operations
 

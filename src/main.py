@@ -37,10 +37,13 @@ def initialiseGame(args, mode):
 
 	if mode == 0: # standard
 		maincontroller.initialiseStandard(args[0], args[1], args[2])
+		draw.initialiseStandard()
 	elif mode == 1: # endless
 		maincontroller.initialiseEndless(args[0], args[1])
+		draw.initialiseEndless()
 	elif mode == 2: # puzzle
 		maincontroller.initialisePuzzle(args[0])
+		draw.initialisePuzzle()
 	elif mode == 3: # tutorial
 		maincontroller.initialiseTutorial()
 		draw.initialiseTutorial()

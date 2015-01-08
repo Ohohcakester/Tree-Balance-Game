@@ -4,6 +4,7 @@ class PlayerControl:
 	
 	def __init__(self):
 		self.currentNode = None
+		self.rotations = 0
 
 	def selectIfUnselected(self):
 		if self.currentNode != None:
@@ -40,6 +41,7 @@ class PlayerControl:
 		if self.currentNode == None: return
 
 		if gameglobals.tree.rotateLeft(self.currentNode):
+			self.rotations += 1
 			self.goUp()
 
 	def rotateRight(self):
@@ -47,6 +49,7 @@ class PlayerControl:
 		if self.currentNode == None: return
 
 		if gameglobals.tree.rotateRight(self.currentNode):
+			self.rotations += 1
 			self.goUp()
 
 	def isSelected(self, index):

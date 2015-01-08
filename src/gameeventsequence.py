@@ -22,6 +22,18 @@ class EventSequence:
 	def update(self):
 		for gameEvent in self.gameEvents:
 			gameEvent.update(self.seqNo)
+			
+	def setPromptText(self, message):
+		gameglobals.gameStats.setPromptText(message)
+
+	def clearPromptText(self):
+		gameglobals.gameStats.clearPromptText()
+
+	def pauseQueue(self):
+		gameglobals.gameStats.pauseCooldown()
+
+	def resumeQueue(self):
+		gameglobals.gameStats.resumeCooldown()
 
 
 class GameEvent:

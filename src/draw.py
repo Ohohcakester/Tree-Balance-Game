@@ -88,6 +88,20 @@ def initialiseTutorial():
 	drawOther = lambda : drawTutorialUI()
 	graphics.initialiseTutorialText()
 
+def initialiseStandard():
+	global drawOther
+	drawOther = lambda : drawStandardUI()
+
+def initialiseEndless():
+	global drawOther
+	drawOther = lambda : drawEndlessUI()
+
+def initialisePuzzle():
+	global drawOther, graphics
+	size = gameglobals.size
+	drawOther = lambda : drawPuzzleUI()
+	graphics.promptTextPosition = [size[0], size[1]-30]
+
 
 def initialise():
 	global normalColours
@@ -209,12 +223,6 @@ def drawText():
 	global graphics
 	gameStats = gameglobals.gameStats
 
-	value = gameStats.numOperations()
-	if graphics.text_operations == None or graphics.text_operations_value != value:
-		graphics.text_operations = opsFont.render("Ops: " + str(value), True, OPS_TEXT_COLOUR)
-		graphics.text_operations_value = value
-	screen.blit(graphics.text_operations, [20,70])
-
 	value = gameStats.treeSize()
 	if graphics.text_treeSize == None or graphics.text_treeSize_value != value:
 		graphics.text_treeSize = statsFont.render("Size: " + str(value), True, TEXT_COLOUR)
@@ -227,6 +235,39 @@ def drawText():
 		graphics.text_treeHeight_value = value
 	screen.blit(graphics.text_treeHeight, [20,50])
 
+
+def drawScoreOps():
+	screen = gameglobals.screen
+	global graphics
+	gameStats = gameglobals.gameStats
+
+	value = gameStats.numOperations()
+	if graphics.text_operations == None or graphics.text_operations_value != value:
+		graphics.text_operations = opsFont.render("Ops: " + str(value), True, OPS_TEXT_COLOUR)
+		graphics.text_operations_value = value
+	screen.blit(graphics.text_operations, [20,70])
+
+def drawScoreProgress():
+	screen = gameglobals.screen
+	global graphics
+	gameStats = gameglobals.gameStats
+
+	value = gameStats.numOperations()*10000 // gameStats.queueTotalSize() / 100
+	if graphics.text_operations == None or graphics.text_operations_value != value:
+		graphics.text_operations = opsFont.render(str(value)+"%", True, OPS_TEXT_COLOUR)
+		graphics.text_operations_value = value
+	screen.blit(graphics.text_operations, [20,70])
+
+def drawScoreRotations():
+	screen = gameglobals.screen
+	global graphics
+	gameStats = gameglobals.gameStats
+
+	value = gameStats.numRotations()
+	if graphics.text_operations == None or graphics.text_operations_value != value:
+		graphics.text_operations = opsFont.render("Moves: " + str(value), True, OPS_TEXT_COLOUR)
+		graphics.text_operations_value = value
+	screen.blit(graphics.text_operations, [20,70])
 
 
 def drawGameScene():
@@ -294,6 +335,16 @@ def drawGameOverMessage():
 
 def drawTutorialUI():
 	drawTutorialText()
+	drawPromptText()
+
+def drawStandardUI():
+	drawScoreProgress()
+
+def drawEndlessUI():
+	drawScoreOps()
+
+def drawPuzzleUI():
+	drawScoreRotations()
 	drawPromptText()
 
 

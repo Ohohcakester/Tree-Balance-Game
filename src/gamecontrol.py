@@ -35,11 +35,17 @@ class GameStats:
 	def numOperations(self):
 		return gameglobals.opQueue.opCount
 
+	def queueTotalSize(self):
+		return gameglobals.opQueue.totalSize()
+
 	def treeSize(self):
 		return gameglobals.tree.size()
 
 	def treeHeight(self):
 		return gameglobals.tree.height
+
+	def numRotations(self):
+		return gameglobals.player.rotations
 
 	def accelerateSpawn(self, multiplier):
 		self.cooldown = int(self.baseCooldown / multiplier)
@@ -108,6 +114,9 @@ class OperationQueue:
 			return 0
 		else:
 			return size
+
+	def totalSize(self):
+		return len(self.queue)
 
 	def resetNextFewOperations(self):
 		self.nextFewOperations = self.queue[self.index:self.index+self.nextFewSize]
