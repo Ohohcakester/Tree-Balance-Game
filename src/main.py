@@ -1,6 +1,6 @@
 import sys, pygame
 import keyinput, treemanager, draw, playercontrol
-import gameglobals, cameracontrols, gamecontrol
+import gameglobals, cameracontrols, maincontroller
 import menucontrol, menudraw
 pygame.init()
 
@@ -36,13 +36,13 @@ def initialiseGame(args, mode):
 	cameracontrols.initialise()
 
 	if mode == 0: # standard
-		gamecontrol.initialiseStandard(args[0], args[1], args[2])
+		maincontroller.initialiseStandard(args[0], args[1], args[2])
 	elif mode == 1: # endless
-		gamecontrol.initialiseEndless(args[0], args[1])
+		maincontroller.initialiseEndless(args[0], args[1])
 	elif mode == 2: # puzzle
 		pass
 	elif mode == 3: # tutorial
-		gamecontrol.initialiseTutorial()
+		maincontroller.initialiseTutorial()
 		draw.initialiseTutorial()
 
 def uninitialiseGame():
@@ -55,7 +55,7 @@ def gameUpdate():
 	global frame
 	treemanager.update()
 	cameracontrols.cameraUpdate()
-	gamecontrol.update(frame)
+	maincontroller.update(frame)
 	frame += 1
 
 	if gameglobals.gameStats.gameExited:

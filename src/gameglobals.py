@@ -11,3 +11,5 @@ gameStats = None
 controller = None
 
 menu = None
+
+eventSequence = None
