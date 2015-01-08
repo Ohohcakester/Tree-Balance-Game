@@ -40,7 +40,7 @@ def initialiseGame(args, mode):
 	elif mode == 1: # endless
 		maincontroller.initialiseEndless(args[0], args[1])
 	elif mode == 2: # puzzle
-		pass
+		maincontroller.initialisePuzzle(args[0])
 	elif mode == 3: # tutorial
 		maincontroller.initialiseTutorial()
 		draw.initialiseTutorial()
@@ -67,9 +67,9 @@ def initialiseMenu():
 	global inMenu
 	inMenu = True
 	menudraw.initialise()
-	menucontrol.initialise(lambda rate, size, hp: initialiseGame([rate, size, hp], 0),
-							lambda rate, hp: initialiseGame([rate, hp], 1),
-							None,
+	menucontrol.initialise(lambda rate, size, hp : initialiseGame([rate, size, hp], 0),
+							lambda rate, hp : initialiseGame([rate, hp], 1),
+							lambda puzzleNo : initialiseGame([puzzleNo], 2),
 							lambda : initialiseGame(None, 3))
 
 def menuUpdate():

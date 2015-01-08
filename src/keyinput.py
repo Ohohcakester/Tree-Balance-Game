@@ -21,6 +21,10 @@ def keyPressMenu(key):
 		gameglobals.menu.goUp()
 	elif (key == pygame.K_DOWN):
 		gameglobals.menu.goDown()
+	elif (key == pygame.K_LEFT):
+		gameglobals.menu.goLeft()
+	elif (key == pygame.K_RIGHT):
+		gameglobals.menu.goRight()
 	elif (key == pygame.K_RETURN or key == pygame.K_SPACE):
 		gameglobals.menu.enter()
 	elif (key == pygame.K_ESCAPE):
