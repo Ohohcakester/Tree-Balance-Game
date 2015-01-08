@@ -9,6 +9,7 @@ cameraCenter = None
 
 gameStats = None
 controller = None
+opQueue = None
 
 menu = None
 

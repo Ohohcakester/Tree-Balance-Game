@@ -48,6 +48,9 @@ class Graphics:
 
 		self.creditsText = None
 
+		size = gameglobals.size
+		self.promptTextPosition = [size[0], size[1]-195]
+
 
 	def gameOver(self, isVictory):
 		self.node_unselected = pygame.image.load("assets/nodeDead.png")
@@ -82,7 +85,7 @@ def uninitialise():
 
 def initialiseTutorial():
 	global drawOther
-	drawOther = lambda : drawTutorialText()
+	drawOther = lambda : drawTutorialUI()
 	graphics.initialiseTutorialText()
 
 
@@ -153,7 +156,7 @@ def drawUI():
 	screen.blit(graphics.uiBar, [0,0])
 
 	# Draw Queue
-	queue = gameglobals.controller.queue
+	queue = gameglobals.opQueue
 	operations = queue.nextFewOperations
 
 	queueDistance = 60
@@ -197,7 +200,6 @@ def drawUI():
 	rect.width *= gameStats.hp
 	rect.width //= gameStats.maxHp
 	pygame.draw.rect(screen, HPBAR_FRONT, rect)
-
 
 	drawText()
 
@@ -290,11 +292,18 @@ def drawGameOverMessage():
 	screen.blit(graphics.gameOverMessage, position)
 
 
+def drawTutorialUI():
+	drawTutorialText()
+	drawPromptText()
+
 
 def drawTutorialText():
+	if gameglobals.player.currentNode == None: return
+
 	global graphics
 	screen = gameglobals.screen
 	size = gameglobals.size
+
 	index = gameglobals.player.currentNode.data - 1
 	position = [0, size[1] - graphics.tutorialPanelHeight]
 	screen.blit(graphics.tutorialImages[index], position)
@@ -304,3 +313,15 @@ def drawTutorialText():
 			graphics.creditsText = font.render("Made by Oh", True, [170,0,132])
 		position = [size[0] - 130, size[1]-35]
 		screen.blit(graphics.creditsText, position)
+
+
+def drawPromptText():
+	gameStats = gameglobals.gameStats
+	if gameStats.promptTextMessage != None:
+		if gameStats.promptText == None:
+			global TEXT_COLOUR
+			gameStats.promptText = opsFont.render(gameStats.promptTextMessage,
+									True, TEXT_COLOUR)
+			width = gameStats.promptText.get_width()
+			graphics.promptTextPosition[0] = gameglobals.size[0] - width - 10
+		gameglobals.screen.blit(gameStats.promptText, graphics.promptTextPosition)

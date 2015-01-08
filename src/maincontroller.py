@@ -36,6 +36,7 @@ def update_endless():
 
 def update_tutorial():
 	hpDrain()
+	updateSpawningTutorial()
 	gameglobals.eventSequence.update()
 
 def update_puzzle():
@@ -43,9 +44,19 @@ def update_puzzle():
 	gameglobals.eventSequence.update()
 
 
+def updateSpawningTutorial():
+	if gameglobals.gameStats.updateCooldown() == True:
+		operation = gameglobals.opQueue.popNext()
+		if (operation != None):
+			if (operation[1] == True): # add
+				gameglobals.tree.add(operation[0])
+			else: # delete
+				gameglobals.tree.remove(operation[0])
+
+
 def updateSpawningStandard():
 	if gameglobals.gameStats.updateCooldown() == True:
-		operation = gameglobals.controller.queue.popNext()
+		operation = gameglobals.opQueue.popNext()
 		gameglobals.controller.maybeChangeSpawnRate()
 		if (operation != None):
 			if (operation[1] == True): # add
@@ -58,7 +69,7 @@ def updateSpawningStandard():
 
 def updateSpawningEndless():
 	if gameglobals.gameStats.updateCooldown() == True:
-		operation = gameglobals.controller.queue.popNext()
+		operation = gameglobals.opQueue.popNext()
 		gameglobals.controller.maybeExpand()
 		if (operation != None):
 			if (operation[1] == True): # add
@@ -85,6 +96,7 @@ def initialiseStandard(rate, size, hp):
 	global controllerUpdate
 	gameglobals.gameStats = gamecontrol.GameStats(hp, rate)
 	gameglobals.controller = gamecontrol.OperationController(size)
+	gameglobals.opQueue = gameglobals.controller.queue
 	controllerUpdate = lambda : update_standard()
 
 
@@ -92,6 +104,7 @@ def initialiseEndless(rate, hp):
 	global controllerUpdate
 	gameglobals.gameStats = gamecontrol.GameStats(hp, rate)
 	gameglobals.controller = gamecontrol.OperationController(20)
+	gameglobals.opQueue = gameglobals.controller.queue
 	controllerUpdate = lambda : update_endless()
 
 

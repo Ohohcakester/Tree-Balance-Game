@@ -274,7 +274,7 @@ class Tree:
 
 	def rotateRight(self, node):
 		if (node.left == None):
-			return
+			return False
 
 		node.left.parentEdge.reverse()
 		parentEdge = node.parentEdge
@@ -300,10 +300,11 @@ class Tree:
 		node.left = node.left.right
 		node.parent.right = node
 		self.generatePositions()
+		return True
 
 	def rotateLeft(self, node):
 		if (node.right == None):
-			return
+			return False
 
 		node.right.parentEdge.reverse()
 		parentEdge = node.parentEdge
@@ -329,6 +330,7 @@ class Tree:
 		node.right = node.right.left
 		node.parent.left = node
 		self.generatePositions()
+		return True
 
 
 	def printInOrder(self):

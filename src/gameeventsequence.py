@@ -13,6 +13,9 @@ class EventSequence:
 	def defineEvents(self):
 		pass #abstract
 
+	def clearEvents(self):
+		self.gameEvents = []
+
 	def addEvent(self, seqNo, condition, action):
 		self.gameEvents.append(GameEvent(seqNo, condition, action))
 

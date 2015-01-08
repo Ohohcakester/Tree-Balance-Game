@@ -37,16 +37,16 @@ class PlayerControl:
 
 	def rotateLeft(self):
 		if (self.gameOver()): return
-		
 		if self.currentNode == None: return
-		gameglobals.tree.rotateLeft(self.currentNode)
 
+		gameglobals.tree.rotateLeft(self.currentNode)
+		
 	def rotateRight(self):
 		if (self.gameOver()): return
-		
 		if self.currentNode == None: return
-		gameglobals.tree.rotateRight(self.currentNode)
 
+		gameglobals.tree.rotateRight(self.currentNode)
+		
 	def isSelected(self, index):
 		if self.currentNode == None:
 			return False

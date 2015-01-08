@@ -2,7 +2,6 @@ import gameglobals
 import random
 
 
-
 class GameStats:
 
 	def __init__(self, maxHp, rate):
@@ -13,9 +12,28 @@ class GameStats:
 		self.gameExited = False
 		self.gameOver = False
 		self.cooldownTimer = 30
+		self.cooldownPaused = False
+
+		self.promptText = None
+		self.promptTextMessage = None
+
+	def pauseCooldown(self):
+		self.cooldownPaused = True
+		self.cooldownTimer = self.cooldown
+
+	def resumeCooldown(self):
+		self.cooldownPaused = False
+
+	def setPromptText(self, message):
+		self.promptTextMessage = message
+		self.promptText = None
+
+	def clearPromptText(self):
+		self.promptTextMessage = None
+		self.promptText = None
 
 	def numOperations(self):
-		return gameglobals.controller.queue.opCount
+		return gameglobals.opQueue.opCount
 
 	def treeSize(self):
 		return gameglobals.tree.size()
@@ -27,6 +45,8 @@ class GameStats:
 		self.cooldown = int(self.baseCooldown / multiplier)
 
 	def updateCooldown(self):
+		if self.cooldownPaused: return False
+
 		if self.cooldownTimer > 0:
 			self.cooldownTimer -= 1
 			return False
@@ -48,6 +68,7 @@ class OperationQueue:
 		self.index = 0
 		self.renderedText = []
 		self.opCount = 0
+		self.resetNextFewOperations()
 
 	def enqueue(self, data, addNotDelete):
 		self.queue.append([data, addNotDelete])
@@ -70,13 +91,23 @@ class OperationQueue:
 		return self.queue[splitPoint:]
 
 	def popNext(self):
-		if self.index >= len(self.queue): return None
+		if self.isEmpty(): return None
 
 		operation = self.queue[self.index]
 		self.index += 1
 		self.resetNextFewOperations()
 		self.opCount += 1
 		return operation
+
+	def isEmpty(self):
+		return self.index >= len(self.queue)
+
+	def size(self):
+		size = len(self.queue) - self.index
+		if size < 0:
+			return 0
+		else:
+			return size
 
 	def resetNextFewOperations(self):
 		self.nextFewOperations = self.queue[self.index:self.index+self.nextFewSize]
