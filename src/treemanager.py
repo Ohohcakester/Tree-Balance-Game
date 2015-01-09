@@ -5,13 +5,17 @@ class AnimationTimer:
 	def __init__(self):
 		self.frame = 0
 		self.maxFrame = 15
+		self.animating = True
 
 	def update(self):
 		if (self.frame < self.maxFrame):
 			self.frame += 1
+		else:
+			self.animating = False
 
 	def reset(self):
 		self.frame = 0
+		self.animating = True
 
 
 class EdgeLine:
@@ -131,10 +135,11 @@ class Tree:
 
 	def update(self):
 		self.animationTimer.update()
-		for nodeCircle in self.nodeCircles:
-			nodeCircle.update()
-		for edgeLine in self.edgeLines:
-			edgeLine.update()
+		if self.animationTimer.animating:
+			for nodeCircle in self.nodeCircles:
+				nodeCircle.update()
+			for edgeLine in self.edgeLines:
+				edgeLine.update()
 		#self.printInOrder()
 
 	def valueOf(self, nodeCircle):
@@ -437,6 +442,9 @@ class Tree:
 
 def initialise():
 	gameglobals.tree = Tree()
+
+def initialiseTreeImage():
+	gameglobals.treeImage = Tree()
 
 
 def update():

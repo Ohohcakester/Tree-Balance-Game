@@ -7,6 +7,8 @@ player = None
 tree = None
 cameraCenter = None
 
+treeImage = None
+
 gameStats = None
 controller = None
 opQueue = None
@@ -14,3 +16,17 @@ opQueue = None
 menu = None
 
 eventSequence = None
+
+
+def uninitialise():
+	global player, tree, cameraCenter, gameStats
+	global controller, opQueue, eventSequence
+	player = None
+	tree = None
+	cameraCenter = None
+	gameStats = None
+	controller = None
+	opQueue = None
+	eventSequence = None
+	treeImage = None
+

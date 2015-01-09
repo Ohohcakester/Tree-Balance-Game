@@ -151,7 +151,7 @@ def drawGameFrame():
 		gameglobals.cameraCenter[1]//2 + offset[1] - graphics.bgHalfSize[1]]
 	screen.blit(graphics.background, bgPosition)
 
-	drawGameScene()
+	drawTree(gameglobals.tree)
 	drawUI()
 	drawGameOverMessage()
 	drawOther()
@@ -167,7 +167,8 @@ def drawUI():
 	size = gameglobals.size
 
 	# Draw Frame
-	screen.blit(graphics.uiBar, [0,0])
+	drawPos = [0,0]
+	screen.blit(graphics.uiBar, drawPos)
 
 	# Draw Queue
 	queue = gameglobals.opQueue
@@ -176,7 +177,8 @@ def drawUI():
 	queueDistance = 60
 	queueSize = len(operations)
 	queueLeft = (size[0] - (queueSize-1)*queueDistance)//2
-	pos = [queueLeft, 75]
+	posX = queueLeft
+	posY = 75
 
 	if (queue.renderedText == None):
 		queue.renderedText = []
@@ -190,21 +192,22 @@ def drawUI():
 			image = graphics.addSquare
 		else: # delete
 			image = graphics.deleteSquare
-		screen.blit(image, [pos[0]-graphics.squareHalfSize,
-							pos[1]-graphics.squareHalfSize])
+		drawPos[0] = posX-graphics.squareHalfSize
+		drawPos[1] = posY-graphics.squareHalfSize
+		screen.blit(image, drawPos)
 
-		textPos = [pos[0]-text.get_width()//2,
-					pos[1]-text.get_height()//2]
-		screen.blit(text, textPos)
+		drawPos[0] = posX-text.get_width()//2
+		drawPos[1] = posY-text.get_height()//2
+		screen.blit(text, drawPos)
 
 		if i == 0:
 			if graphics.nextText == None:
 				graphics.nextText = font.render("NEXT", True, TEXT_COLOUR)
-			textPos = [pos[0]-graphics.nextText.get_width()//2,
-						pos[1]-graphics.nextText.get_height()//2+27]
-			screen.blit(graphics.nextText, textPos)
+			drawPos[0] = posX-graphics.nextText.get_width()//2
+			drawPos[1] = posY-graphics.nextText.get_height()//2+27
+			screen.blit(graphics.nextText, drawPos)
 
-		pos[0] += queueDistance
+		posX += queueDistance
 
 
 	# Draw Health Bar
@@ -270,57 +273,58 @@ def drawScoreRotations():
 	screen.blit(graphics.text_operations, [20,70])
 
 
-def drawGameScene():
+def drawTree(tree):
 	screen = gameglobals.screen
 	global offset, font, balanceYOffset, graphics
 
-	center = [gameglobals.cameraCenter[0] + offset[0],
-		gameglobals.cameraCenter[1] + offset[1]]
+	centerX = gameglobals.cameraCenter[0] + offset[0]
+	centerY = gameglobals.cameraCenter[1] + offset[1]
 
-	for edgeLine in gameglobals.tree.edgeLines:
-		fromPos = [center[0] + edgeLine.fromPosition[0],
-			center[1] + edgeLine.fromPosition[1]]
-		toPos = [center[0] + edgeLine.toPosition[0], 
-			center[1] + edgeLine.toPosition[1]]
+	for edgeLine in tree.edgeLines:
+		fromPos = [centerX + edgeLine.fromPosition[0],
+			centerY + edgeLine.fromPosition[1]]
+		toPos = [centerX + edgeLine.toPosition[0], 
+			centerY + edgeLine.toPosition[1]]
 		pygame.draw.line(screen, LINE_COLOUR, fromPos, toPos, 3)
 		
 
-	for nodeCircle in gameglobals.tree.nodeCircles:
-		balance = gameglobals.tree.balanceOf(nodeCircle)
+	drawPos = [0,0] #ignore this statement. I just need a 2-element list.
+	for nodeCircle in tree.nodeCircles:
+		balance = tree.balanceOf(nodeCircle)
 
-		position = [center[0] + nodeCircle.position[0],
-			center[1] + nodeCircle.position[1]]
+		positionX = centerX + nodeCircle.position[0]
+		positionY = centerY + nodeCircle.position[1]
 
 		if (abs(balance) >= 2):
-			circlePos = [position[0] - graphics.nodeGlowHalfSize,
-						position[1] - graphics.nodeGlowHalfSize]
+			drawPos[0] = positionX - graphics.nodeGlowHalfSize
+			drawPos[1] = positionY - graphics.nodeGlowHalfSize
 			image = graphics.nodeGlow
-			screen.blit(image, circlePos)
+			screen.blit(image, drawPos)
 			if (abs(balance) > 2):
-				screen.blit(image, circlePos)
+				screen.blit(image, drawPos)
 
 
-		circlePos = [position[0] - graphics.nodeHalfSize,
-					position[1] - graphics.nodeHalfSize]
+		drawPos[0] = positionX - graphics.nodeHalfSize
+		drawPos[1] = positionY - graphics.nodeHalfSize
 		if gameglobals.player.isSelected(nodeCircle.index):
 			image = graphics.node_selected
 		else:
 			image = graphics.node_unselected
-		screen.blit(image, circlePos)
+		screen.blit(image, drawPos)
 		#pygame.draw.circle(screen, colour, position, nodeCircle.radius)
 
 		if (nodeCircle.renderedText == None):
 			nodeCircle.renderedText = font.render(
-				str(gameglobals.tree.valueOf(nodeCircle)), True, NODE_TEXT_COLOUR)
-		textPos = [position[0]-nodeCircle.renderedText.get_width()//2,
-					position[1]-nodeCircle.renderedText.get_height()//2]
-		screen.blit(nodeCircle.renderedText, textPos)
+				str(tree.valueOf(nodeCircle)), True, NODE_TEXT_COLOUR)
+		drawPos[0] = positionX-nodeCircle.renderedText.get_width()//2
+		drawPos[1] = positionY-nodeCircle.renderedText.get_height()//2
+		screen.blit(nodeCircle.renderedText, drawPos)
 
 		if (nodeCircle.renderedBalance == None):
 			nodeCircle.renderedBalance = font.render(str(balance), True, TEXT_COLOUR)
-		textPos = [position[0]-nodeCircle.renderedBalance.get_width()//2,
-					position[1]-nodeCircle.renderedBalance.get_height()//2 - balanceYOffset]
-		screen.blit(nodeCircle.renderedBalance, textPos)
+		drawPos[0] = positionX-nodeCircle.renderedBalance.get_width()//2
+		drawPos[1] = positionY-nodeCircle.renderedBalance.get_height()//2 - balanceYOffset
+		screen.blit(nodeCircle.renderedBalance, drawPos)
 
 
 def drawGameOverMessage():

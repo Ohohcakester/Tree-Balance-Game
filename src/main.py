@@ -44,12 +44,14 @@ def initialiseGame(args, mode):
 	elif mode == 2: # puzzle
 		maincontroller.initialisePuzzle(args[0])
 		draw.initialisePuzzle()
+		treemanager.initialiseTreeImage()
 	elif mode == 3: # tutorial
 		maincontroller.initialiseTutorial()
 		draw.initialiseTutorial()
 
 def uninitialiseGame():
 	draw.uninitialise()
+	gameglobals.uninitialise()
 
 def uninitialiseMenu():
 	menudraw.uninitialise()	

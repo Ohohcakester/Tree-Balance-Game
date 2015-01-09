@@ -167,6 +167,7 @@ class PuzzleSequence(gameeventsequence.EventSequence):
 			gameglobals.tree.add(5)
 			gameglobals.tree.add(4)
 			gameglobals.tree.add(3)
+
 		elif stage == 2:
 			gameglobals.tree.add(8)
 			gameglobals.tree.add(4)
@@ -176,3 +177,52 @@ class PuzzleSequence(gameeventsequence.EventSequence):
 			gameglobals.tree.add(3)
 			gameglobals.tree.add(5)
 			gameglobals.tree.add(7)
+
+		elif stage == 3:
+			gameglobals.tree.add(7)
+			gameglobals.tree.add(1)
+			gameglobals.tree.add(6)
+			gameglobals.tree.add(2)
+			gameglobals.tree.add(5)
+			gameglobals.tree.add(3)
+			gameglobals.tree.add(4)
+
+		elif stage == 4:
+			gameglobals.tree.add(8)
+			gameglobals.tree.add(4)
+			gameglobals.tree.add(11)
+			gameglobals.tree.add(2)
+			gameglobals.tree.add(6)
+			gameglobals.tree.add(9)
+			gameglobals.tree.add(13)
+			gameglobals.tree.add(1)
+			gameglobals.tree.add(3)
+			gameglobals.tree.add(5)
+			gameglobals.tree.add(7)
+			gameglobals.tree.add(10)
+			gameglobals.tree.add(12)
+			gameglobals.tree.add(14)
+
+		elif stage == 5:
+			gameglobals.tree.add(3)
+			gameglobals.tree.add(1)
+			gameglobals.tree.add(4)
+			gameglobals.tree.add(2)
+			gameglobals.tree.add(5)
+			gameglobals.tree.add(6)
+			gameglobals.tree.add(7)
+
+		elif stage == 6:
+			gameglobals.tree.add(7)
+			gameglobals.tree.add(2)
+			gameglobals.tree.add(9)
+			gameglobals.tree.add(1)
+			gameglobals.tree.add(4)
+			gameglobals.tree.add(8)
+			gameglobals.tree.add(11)
+			gameglobals.tree.add(3)
+			gameglobals.tree.add(6)
+			gameglobals.tree.add(10)
+			gameglobals.tree.add(13)
+			gameglobals.tree.add(5)
+			gameglobals.tree.add(12)
