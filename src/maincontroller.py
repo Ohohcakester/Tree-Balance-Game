@@ -37,11 +37,13 @@ def update_endless():
 def update_tutorial():
 	hpDrain()
 	updateSpawningTutorial()
-	gameglobals.eventSequence.update()
+	if gameglobals.eventSequence.update():
+		winGame()
 
 def update_puzzle():
 	#hpDrain()
-	gameglobals.eventSequence.update()
+	if gameglobals.eventSequence.update():
+		winGame()
 
 
 def updateSpawningTutorial():

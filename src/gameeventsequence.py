@@ -22,6 +22,7 @@ class EventSequence:
 	def update(self):
 		for gameEvent in self.gameEvents:
 			gameEvent.update(self.seqNo)
+		return self.checkForWin()
 			
 	def setPromptText(self, message):
 		gameglobals.gameStats.setPromptText(message)
@@ -34,6 +35,20 @@ class EventSequence:
 
 	def resumeQueue(self):
 		gameglobals.gameStats.resumeCooldown()
+
+	def checkForWin(self):
+		tree = gameglobals.tree
+		if tree.dirty:
+			if self.winCondition(tree):
+				return True
+			tree.resetDirtyFlag()
+		return self.winConditionImmediate()
+
+	def winCondition(self, tree):
+		return False
+
+	def winConditionImmediate(self):
+		return False
 
 
 class GameEvent:

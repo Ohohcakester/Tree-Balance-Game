@@ -63,6 +63,10 @@ class GameStats:
 	def exitGame(self):
 		self.gameExited = True
 
+	def exitIfGameOver(self):
+		if self.gameOver:
+			self.exitGame()
+
 
 
 #Carries add / delete operations.

@@ -132,6 +132,7 @@ class Tree:
 		self.edgeLines = []
 		self.treeNodes = []
 		self.height = 0
+		self.dirty = False
 
 	def update(self):
 		self.animationTimer.update()
@@ -141,6 +142,9 @@ class Tree:
 			for edgeLine in self.edgeLines:
 				edgeLine.update()
 		#self.printInOrder()
+
+	def resetDirtyFlag(self):
+		self.dirty = False
 
 	def valueOf(self, nodeCircle):
 		return self.treeNodes[nodeCircle.index].data
@@ -406,6 +410,7 @@ class Tree:
 		self.generatePositionsRecurse(node.right)
 
 	def generatePositions(self):
+		self.dirty = True
 		if self.root == None: return
 		self.recomputeBalancesUpdateHeight()
 		self.generateTreeWidth(self.root)

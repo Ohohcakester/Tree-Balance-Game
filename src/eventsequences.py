@@ -138,6 +138,10 @@ class TutorialSequence(gameeventsequence.EventSequence):
 		self.setPromptText('Congratulations! You have completed the tutorial!')
 		self.resumeQueue()
 
+	def winConditionImmediate(self):
+		currentNode = gameglobals.player.currentNode
+		return currentNode != None and currentNode.data == 8
+
 
 
 
@@ -157,16 +161,20 @@ class PuzzleSequence(gameeventsequence.EventSequence):
 
 		self.setPromptText('Work in progress... Nothing to see here.')
 
+	def s1_tree(self):
+		return [1,2,3,7,6,5,4,3]
+
+	def s1_winCondition(self, tree):
+		return tree.height == 3
+
+	def setup(self, treeList, winCondition):
+		for i in treeList:
+			gameglobals.tree.add(i)
+		self.winCondition = winCondition
+
 	def setupStage(self, stage):
 		if stage == 1:
-			gameglobals.tree.add(1)
-			gameglobals.tree.add(2)
-			gameglobals.tree.add(3)
-			gameglobals.tree.add(7)
-			gameglobals.tree.add(6)
-			gameglobals.tree.add(5)
-			gameglobals.tree.add(4)
-			gameglobals.tree.add(3)
+			self.setup(self.s1_tree(), lambda tree : self.s1_winCondition(tree))
 
 		elif stage == 2:
 			gameglobals.tree.add(8)
