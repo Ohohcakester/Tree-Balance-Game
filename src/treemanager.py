@@ -1,4 +1,5 @@
 import gameglobals
+from queue import Queue
 
 class AnimationTimer:
 
@@ -440,6 +441,43 @@ class Tree:
 		for node in self.treeNodes:
 			total += self.imbalance(node)
 		return total
+
+	def levelOrderMatches(self, levelOrder):
+		if self.root == None:
+			return len(levelOrder) == 0
+
+		leNodes = [-1]*len(levelOrder)
+		leNodes[0] = self.root
+		free = 1
+		for i in range(0,len(levelOrder)):
+			if leNodes[i].data != levelOrder[i]:
+				return False
+			if leNodes[i].left != None:
+				leNodes[free] = leNodes[i].left
+				free += 1
+			if leNodes[i].right != None:
+				leNodes[free] = leNodes[i].right
+				free += 1
+		return True
+
+	def generateHeightArray(self):
+		heights = [-1]*len(self.treeNodes)
+		currentHeight = 0
+		q = Queue(maxsize=len(self.treeNodes))
+		qAlt = Queue(maxsize=len(self.treeNodes))
+		qAlt.put(self.root)
+		while not qAlt.empty():
+			q, qAlt = qAlt, q
+			currentHeight += 1
+			while not q.empty():
+				curNode = q.get()
+				heights[curNode.index] = currentHeight
+				if curNode.left != None:
+					qAlt.put(curNode.left, False)
+				if curNode.right != None:
+					qAlt.put(curNode.right, False)
+		return heights
+
 
 
 
