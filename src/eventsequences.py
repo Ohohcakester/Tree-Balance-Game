@@ -487,6 +487,68 @@ class Stage18: #HARD!
 		return maxOdd < minEven
 
 
+class Stage19:
+	def __init__(self):
+		self.treeList = [5,3,8,2,4,6,9,1,7]
+		self.objective = 'Only multiples of 4 have non-zero balance!'
+		
+		#optimal = ?
+		self.gold = 5 #(probably improvable?)
+		self.par = 18
+
+	def winCondition(self, tree):
+		for i in range(0,len(tree.treeNodes)):
+			if tree.treeNodes[i].data%4 == 0:
+				if tree.treeNodes[i].balance == 0:
+					return False
+			else:
+				if tree.treeNodes[i].balance != 0:
+					return False
+		return True
+
+
+
+class Stage20:
+	def __init__(self):
+		self.treeList = [6,1,8,4,5,3,2,7]
+		self.objective = 'Only primes have non-zero balance!'
+		
+		#optimal = ?
+		self.gold = 7
+		self.par = 9
+
+	def winCondition(self, tree):
+		primes = [2,3,5,7]
+		for i in range(0,len(tree.treeNodes)):
+			if tree.treeNodes[i].data in primes:
+				if tree.treeNodes[i].balance == 0:
+					return False
+			else:
+				if tree.treeNodes[i].balance != 0:
+					return False
+		return True
+
+
+class Stage21:
+	def __init__(self):
+		self.treeList = [3,1,8,2,6,9,5,7,4]
+		self.objective = 'Even numbers have even balance, odd numbers have odd balance!'
+		
+		#optimal = ?
+		self.gold = 4
+		self.par = 7
+
+	def winCondition(self, tree):
+		for i in range(0,len(tree.treeNodes)):
+			if tree.treeNodes[i].data%2 == 0:
+				if tree.treeNodes[i].balance%2 == 1:
+					return False
+			else:
+				if tree.treeNodes[i].balance%2 == 0:
+					return False
+		return True
+
+
 
 
 		#self.treeList = [1,2,3,7,6,5,4,3]
