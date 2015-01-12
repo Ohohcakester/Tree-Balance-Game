@@ -421,7 +421,24 @@ class Stage14:
 		return True
 		
 
-class Stage15: #HARD!
+class Stage15:
+	def __init__(self):
+		self.treeList = [4,12,2,9,15,8,18,13,11,7,3,1,10,14,5,16,17,6]
+		self.objective = 'All nodes with balance 0 or -1'
+		
+		#optimal = ?
+		self.gold = 4
+		self.par = 6
+
+	def winCondition(self, tree):
+		balances = [0,-1]
+		for i in range(0,len(tree.treeNodes)):
+			if tree.treeNodes[i].balance not in balances:
+				return False
+		return True
+
+
+class Stage16: #HARD!
 	def __init__(self):
 		self.treeList = [7,2,9,1,4,8,11,3,6,10,13,5,12,15,14]
 		self.objective = 'Mirror the tree!'
@@ -434,7 +451,7 @@ class Stage15: #HARD!
 		return tree.levelOrderMatches([9,7,14,5,8,12,15,3,6,10,13,1,4,11,2])
 		
 
-class Stage16:
+class Stage17:
 	def __init__(self):
 		self.treeList = [4,2,9,1,3,5,11,7,10,12,6,8]
 		self.objective = 'Maximise the height (5) while keeping the tree balanced!' +\
@@ -453,7 +470,7 @@ class Stage16:
 		return True
 
 
-class Stage17:
+class Stage18:
 	def __init__(self):
 		self.treeList = [5,1,9,4,6,10,2,7,11,3,8]
 		self.objective = 'Mirror the tree!'
@@ -465,7 +482,8 @@ class Stage17:
 	def winCondition(self, tree):
 		return tree.levelOrderMatches([7,3,11,2,6,8,1,5,10,4,9])
 
-class Stage18:
+
+class Stage19:
 	def __init__(self):
 		self.treeList = [5,3,8,2,4,6,9,1,7]
 		self.objective = 'Only multiples of 4 have non-zero balance!'
@@ -485,7 +503,7 @@ class Stage18:
 		return True
 
 
-class Stage19: #HARD!
+class Stage20: #HARD!
 	def __init__(self):
 		self.treeList = [6,2,11,1,4,8,12,3,5,7,9,10]
 		self.objective = 'All even nodes below the odd nodes!'
@@ -507,7 +525,7 @@ class Stage19: #HARD!
 
 
 
-class Stage20:
+class Stage21:
 	def __init__(self):
 		self.treeList = [2,1,10,6,11,4,8,3,5,7,9]
 		self.objective = 'Exactly 3 nodes with balance 4.'
@@ -524,7 +542,7 @@ class Stage20:
 		return count == 3
 
 
-class Stage21:
+class Stage22:
 	def __init__(self):
 		self.treeList = [6,1,8,4,5,3,2,7]
 		self.objective = 'Only primes have non-zero balance!'
@@ -545,7 +563,7 @@ class Stage21:
 		return True
 
 
-class Stage22:
+class Stage23:
 	def __init__(self):
 		self.treeList = [3,1,8,2,6,9,5,7,4]
 		self.objective = 'Even numbers have even balance, odd numbers have odd balance!'
@@ -565,7 +583,25 @@ class Stage22:
 		return True
 
 
-class Stage23:
+class Stage24:
+	def __init__(self):
+		self.treeList = [8,7,3,4,9,11,1,10,2,6,5]
+		self.objective = 'Exactly 5 nodes with balance 1 or -1'
+		
+		#optimal = ?
+		self.gold = 4
+		self.par = 7
+
+	def winCondition(self, tree):
+		count = 0
+		balances = [1,-1]
+		for i in range(0,len(tree.treeNodes)):
+			if tree.treeNodes[i].balance in balances:
+				count += 1
+		return count == 5
+
+
+class Stage25:
 	def __init__(self):
 		self.treeList = [5,4,7,6,9,8,11,10,12]
 		self.objective = 'Primes are below non-primes'
@@ -587,22 +623,39 @@ class Stage23:
 		return maxNonPrime < minPrime
 
 
-class Stage24:
+class Stage26:
 	def __init__(self):
-		self.treeList = [8,7,3,4,9,11,1,10,2,6,5]
-		self.objective = 'Exactly 5 nodes with balance 1 or -1'
+		self.treeList = [5,7,15,9,2,1,4,11,10,18,12,14,16,8,17,3,13,6]
+		self.objective = '5 nodes with balance +/- 3'
 		
 		#optimal = ?
-		self.gold = 4
-		self.par = 7
+		self.gold = 5
+		self.par = 9
 
 	def winCondition(self, tree):
 		count = 0
-		balances = [1,-1]
+		balances = [-3,3]
 		for i in range(0,len(tree.treeNodes)):
 			if tree.treeNodes[i].balance in balances:
 				count += 1
 		return count == 5
+
+
+class Stage27:
+	def __init__(self):
+		self.treeList = [5,7,15,9,18,1,4,20,11,2,10,19,12,14,16,8,17,3,13,6]
+		self.objective = 'No nodes with balance 1, -1, 2 or -2'
+		
+		#optimal = ?
+		self.gold = 9
+		self.par = 14
+
+	def winCondition(self, tree):
+		balances = [1,-1,2,-2]
+		for i in range(0,len(tree.treeNodes)):
+			if tree.treeNodes[i].balance in balances:
+				return False
+		return True
 
 
 
