@@ -49,7 +49,21 @@ class Graphics:
 		self.creditsText = None
 
 		size = gameglobals.size
-		self.promptTextPosition = [size[0], size[1]-195]
+		self.promptTextPosition = [0, size[1]-200]
+
+	def initialisePuzzleText(self):
+		size = gameglobals.size
+		self.text_par = None
+		self.parTextPosition = [gameglobals.size[0]-80,50]
+		self.rotationsTextPosition = [gameglobals.size[0]-180,50]
+		self.TEXTCOLOUR_GOLD = 255, 240, 32
+		self.TEXTCOLOUR_PAR = 100, 240, 0
+		self.TEXTCOLOUR_BELOWPAR = 255, 127, 127
+
+		self.text_objective = None
+		self.objectiveTextPosition = [0, 55]
+		self.promptTextPosition = [0, 80]
+
 
 
 	def gameOver(self, isVictory):
@@ -98,9 +112,8 @@ def initialiseEndless():
 
 def initialisePuzzle():
 	global drawOther, graphics
-	size = gameglobals.size
 	drawOther = lambda : drawPuzzleUI()
-	graphics.promptTextPosition = [size[0], size[1]-30]
+	graphics.initialisePuzzleText()
 
 
 def initialise():
@@ -265,12 +278,30 @@ def drawScoreRotations():
 	screen = gameglobals.screen
 	global graphics
 	gameStats = gameglobals.gameStats
+	eventSequence = gameglobals.eventSequence
 
 	value = gameStats.numRotations()
 	if graphics.text_operations == None or graphics.text_operations_value != value:
-		graphics.text_operations = opsFont.render("Moves: " + str(value), True, OPS_TEXT_COLOUR)
+		if value <= eventSequence.gold:
+			colour = graphics.TEXTCOLOUR_GOLD
+		elif value <= eventSequence.par:
+			colour = graphics.TEXTCOLOUR_PAR
+		else:
+			colour = graphics.TEXTCOLOUR_BELOWPAR
+		graphics.text_operations = opsFont.render("Moves: " + str(value), True, colour)
 		graphics.text_operations_value = value
-	screen.blit(graphics.text_operations, [20,70])
+	screen.blit(graphics.text_operations, graphics.rotationsTextPosition)
+
+	if graphics.text_par == None:
+		value = eventSequence.par
+		graphics.text_par = opsFont.render("Par: " + str(value), True, TEXT_COLOUR)
+	screen.blit(graphics.text_par, graphics.parTextPosition)
+
+	if graphics.text_objective == None:
+		graphics.text_objective = opsFont.render("OBJECTIVE", True, TEXT_COLOUR)
+		width = graphics.text_objective.get_width()
+		graphics.objectiveTextPosition[0] = (gameglobals.size[0] - width)//2
+	screen.blit(graphics.text_objective, graphics.objectiveTextPosition)
 
 
 def drawTree(tree):
@@ -378,5 +409,5 @@ def drawPromptText():
 			gameStats.promptText = opsFont.render(gameStats.promptTextMessage,
 									True, TEXT_COLOUR)
 			width = gameStats.promptText.get_width()
-			graphics.promptTextPosition[0] = gameglobals.size[0] - width - 10
+			graphics.promptTextPosition[0] = (gameglobals.size[0] - width)//2
 		gameglobals.screen.blit(gameStats.promptText, graphics.promptTextPosition)

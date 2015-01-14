@@ -163,38 +163,45 @@ class PuzzleSequence(gameeventsequence.EventSequence):
 			gameglobals.tree.add(i)
 		self.winCondition = lambda tree : stageDetails.winCondition(tree)
 		self.setPromptText(stageDetails.objective)
+		self.gold = stageDetails.gold
+		self.par = stageDetails.par
 
 	def setupStage(self, stage):
-		if stage == 1: self.setup(Stage1())
-		elif stage == 2: self.setup(Stage2())
-		elif stage == 3: self.setup(Stage3())
-		elif stage == 4: self.setup(Stage4())
-		elif stage == 5: self.setup(Stage5())
-		elif stage == 6: self.setup(Stage6())
-		elif stage == 7: self.setup(Stage7())
-		elif stage == 8: self.setup(Stage8())
-		elif stage == 9: self.setup(Stage9())
-		elif stage == 10: self.setup(Stage10())
-		elif stage == 11: self.setup(Stage11())
-		elif stage == 12: self.setup(Stage12())
-		elif stage == 13: self.setup(Stage13())
-		elif stage == 14: self.setup(Stage14())
-		elif stage == 15: self.setup(Stage15())
-		elif stage == 16: self.setup(Stage16())
-		elif stage == 17: self.setup(Stage17())
-		elif stage == 18: self.setup(Stage18())
-		elif stage == 19: self.setup(Stage19())
-		elif stage == 20: self.setup(Stage20())
-		elif stage == 21: self.setup(Stage21())
-		elif stage == 22: self.setup(Stage22())
-		elif stage == 23: self.setup(Stage23())
-		elif stage == 24: self.setup(Stage24())
-		elif stage == 25: self.setup(Stage25())
-		elif stage == 26: self.setup(Stage26())
-		elif stage == 27: self.setup(Stage27())
-		elif stage == 28: self.setup(Stage28())
-		elif stage == 29: self.setup(Stage29())
-		elif stage == 30: self.setup(Stage30())
+		self.setup(getStage(stage))
+
+
+
+def getStage(stage):
+	if stage == 1: return Stage1()
+	elif stage == 2: return Stage2()
+	elif stage == 3: return Stage3()
+	elif stage == 4: return Stage4()
+	elif stage == 5: return Stage5()
+	elif stage == 6: return Stage6()
+	elif stage == 7: return Stage7()
+	elif stage == 8: return Stage8()
+	elif stage == 9: return Stage9()
+	elif stage == 10: return Stage10()
+	elif stage == 11: return Stage11()
+	elif stage == 12: return Stage12()
+	elif stage == 13: return Stage13()
+	elif stage == 14: return Stage14()
+	elif stage == 15: return Stage15()
+	elif stage == 16: return Stage16()
+	elif stage == 17: return Stage17()
+	elif stage == 18: return Stage18()
+	elif stage == 19: return Stage19()
+	elif stage == 20: return Stage20()
+	elif stage == 21: return Stage21()
+	elif stage == 22: return Stage22()
+	elif stage == 23: return Stage23()
+	elif stage == 24: return Stage24()
+	elif stage == 25: return Stage25()
+	elif stage == 26: return Stage26()
+	elif stage == 27: return Stage27()
+	elif stage == 28: return Stage28()
+	elif stage == 29: return Stage29()
+	elif stage == 30: return Stage30()
 
 
 class Stage1:
@@ -737,6 +744,19 @@ class Stage29:
 				return False
 		return True
 
+
+
+class Stage30:
+	def __init__(self):
+		self.treeList = [1]
+		self.objective = 'WIP'
+		
+		#optimal = ?
+		self.gold = 100
+		self.par = 100
+
+	def winCondition(self, tree):
+		return False
 
 		#self.treeList = [1,2,3,7,6,5,4,3]
 		#self.treeList = [8,4,2,6,1,3,5,7]
