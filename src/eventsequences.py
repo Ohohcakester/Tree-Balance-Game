@@ -643,22 +643,99 @@ class Stage26:
 
 class Stage27:
 	def __init__(self):
-		self.treeList = [5,7,15,9,18,1,4,20,11,2,10,19,12,14,16,8,17,3,13,6]
-		self.objective = 'No nodes with balance 1, -1, 2 or -2'
+		self.treeList = [6,2,8,1,5,7,10,4,9,11,3]
+		self.objective = 'Make a tree, then mirror it with one rotation.'
 		
 		#optimal = ?
-		self.gold = 9
-		self.par = 14
+		self.gold = 5
+		self.par = 7
+
+		self.previousLeft = [-1]*len(self.treeList)
+		self.previousRight = [-1]*len(self.treeList)
+
+	def snapshotTreeReturnFalse(self, tree):
+		free = 1
+		nodes = [-1]*len(self.treeList)
+		nodes[0] = tree.root
+		for i in range(0,len(self.treeList)):
+			if nodes[i].left == None:
+				self.previousLeft[i] = -1
+			else:
+				nodes[free] = nodes[i].left
+				self.previousLeft[i] = free
+				free += 1
+
+			if nodes[i].right == None:
+				self.previousRight[i] = -1
+			else:
+				nodes[free] = nodes[i].right
+				self.previousRight[i] = free
+				free += 1
+		return False
+
+	def winCondition(self, tree):
+		#ASSUMPTION: THIS IS CALLED ONCE PER ROTATION
+		#compare with snapshot
+		free = 1
+		nodes = [-1]*len(self.treeList)
+		nodes[0] = tree.root
+		for i in range(0,len(self.treeList)):
+			if nodes[i].right == None:
+				if self.previousLeft[i] != -1:
+					return self.snapshotTreeReturnFalse(tree)
+			else:
+				nodes[free] = nodes[i].right
+				if self.previousLeft[i] != free:
+					return self.snapshotTreeReturnFalse(tree)
+				free += 1
+
+			if nodes[i].left == None:
+				if self.previousRight[i] != -1:
+					return self.snapshotTreeReturnFalse(tree)
+			else:
+				nodes[free] = nodes[i].left
+				if self.previousRight[i] != free:
+					return self.snapshotTreeReturnFalse(tree)
+				free += 1
+		return True
+
+
+class Stage28:
+	def __init__(self):
+		self.treeList = [5,7,15,9,18,1,4,20,11,2,10,19,12,14,16,8,17,3,13,6]
+		self.objective = 'No nodes with balance 1, -1, 2 or -2, or above 5/below -5'
+		
+		#optimal = ?
+		self.gold = 17
+		self.par = 28
 
 	def winCondition(self, tree):
 		balances = [1,-1,2,-2]
 		for i in range(0,len(tree.treeNodes)):
-			if tree.treeNodes[i].balance in balances:
+			if tree.treeNodes[i].balance in balances or \
+					tree.treeNodes[i].balance > 5 or \
+					tree.treeNodes[i].balance < -5:
 				return False
 		return True
 
 
+class Stage29:
+	def __init__(self):
+		self.treeList = [5,21,7,15,9,11,2,20,24,10,19,12,27,14,25,8,18,16,26,1,4,22,23,17,3,13,6]
+		self.objective = 'Maximise height (8) while keeping balances between -2 and 2.'
+		
+		#optimal = ?
+		self.gold = 14
+		self.par = 22
 
+	def winCondition(self, tree):
+		if tree.height < 8:
+			return False
+		balances = [0,1,-1,2,-2]
+		for i in range(0,len(tree.treeNodes)):
+			if tree.treeNodes[i].balance not in balances:
+				return False
+		return True
 
 
 		#self.treeList = [1,2,3,7,6,5,4,3]
