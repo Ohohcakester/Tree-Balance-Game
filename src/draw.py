@@ -51,6 +51,7 @@ class Graphics:
 		size = gameglobals.size
 		self.promptTextPosition = [0, size[1]-200]
 
+
 	def initialisePuzzleText(self):
 		size = gameglobals.size
 		self.text_par = None

@@ -115,7 +115,8 @@ def initialise(standardStartFunction, endlessStartFunction,
 	start_puzzle = puzzleStartFunction
 	start_tutorial = tutorialStartFunction
 
-	gameglobals.menu = MenuVars()
+	if gameglobals.menu == None:
+		gameglobals.menu = MenuVars()
 
 
 
