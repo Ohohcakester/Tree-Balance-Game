@@ -1,4 +1,4 @@
-import gameglobals
+import gameglobals, puzzlelevels
 from enum import IntEnum
 
 class MenuScreen(IntEnum):
@@ -14,6 +14,7 @@ class MenuVars:
 	def __init__(self):
 		self.currentOptions = [0]*len(self.numOptions)
 		self.buttonOperations = self.defineButtonOperations()
+		self.descriptionTexts = self.defineDescriptionTexts()
 		self.backOperations = self.defineBackOperations()
 		self.currentMenu = MenuScreen.main
 		self.optionsTextRender = self.generateEmptyArray()
@@ -47,6 +48,30 @@ class MenuVars:
 			operations[3][i] = (lambda target : lambda : start_puzzle(target))(target)
 
 		return operations
+
+	def defineDescriptionTexts(self):
+		descriptions = self.generateEmptyArray()
+
+		descriptions[0][0] = "Standard Mode: Survive until the end of the queue!"
+		descriptions[0][1] = "Endless Mode: Survive as many operations as you can!"
+		descriptions[0][2] = "Puzzle Mode: Take your time and solve increasingly difficult puzzles!"
+		descriptions[0][3] = "Learn the rules of Tree Balance"
+
+		descriptions[1][0] = "Select a difficulty"
+		descriptions[1][1] = "Select a difficulty"
+		descriptions[1][2] = "Select a difficulty"
+		descriptions[1][3] = "Select a difficulty"
+
+		descriptions[2][0] = "Surive as long as you can."
+		descriptions[2][1] = "The binary tree changes very quickly. Can you keep up with the pace?"
+		descriptions[2][2] = "The binary tree changes at a rate that is near impossible to keep up with."
+
+		for i in range(0,self.numOptions[3]):
+			descriptions[3][i] = puzzlelevels.getStage(i+1).objective
+
+		return descriptions
+
+
 
 	def defineBackOperations(self):
 		operations = [MenuScreen.main]*len(self.numOptions)

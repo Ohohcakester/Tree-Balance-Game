@@ -15,11 +15,17 @@ drawMenu = [
 ]
 
 font = pygame.font.SysFont("verdana", 32)
+descriptionFont = pygame.font.SysFont("verdana", 18)
 
 class MenuGraphics:
 
 	def __init__(self):
 		self.background = pygame.image.load("assets/menubg.png")
+
+		self.currentMenu = -1
+		self.currentOption = -1
+		self.descriptionText = None
+		self.descriptionTextPosition = [0,gameglobals.size[1]-40]
 
 
 graphics = None
@@ -42,6 +48,8 @@ def drawMenuFrame():
 	menu = gameglobals.menu
 	drawMenu[menu.currentMenu](screen, menu.currentOption(), 
 		menu.optionsTextRender[menu.currentMenu])
+	drawDescriptionText(menu.currentMenu, menu.currentOptions[menu.currentMenu],
+					menu.descriptionTexts)
 	pygame.display.flip()
 
 
@@ -138,3 +146,14 @@ def drawTileButton(screen, message, index, renders, selection):
 
 	screen.blit(text, [centerPosition[0]-text.get_width()//2,
 					centerPosition[1]-text.get_height()//2])
+
+
+def drawDescriptionText(currentMenu, currentOption, descriptionTexts):
+	if graphics.descriptionText == None or currentMenu != graphics.currentMenu \
+			or currentOption != graphics.currentOption:
+		value = descriptionTexts[currentMenu][currentOption]
+		graphics.descriptionText = descriptionFont.render(value, True, WHITE)
+		width = graphics.descriptionText.get_width()
+		graphics.descriptionTextPosition[0] = (gameglobals.size[0] - width)//2
+	gameglobals.screen.blit(graphics.descriptionText, graphics.descriptionTextPosition)
+
