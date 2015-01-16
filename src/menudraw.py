@@ -217,12 +217,12 @@ def renderScoreMessage(currentMenu, currentOption, scoreValue):
 
 	elif currentMenu == MenuScreen.mode_puzzle:
 		stage = puzzlelevels.getStage(currentOption+1)
-		parString = "       Par: " + str(stage.par)
+		parString = "Par: " + str(stage.par)
 		if scoreValue == -1:
 			message = "Not Completed"
 			colour = WHITE
 		else:
-			message =  "Score (Rotations): " + str(scoreValue)
+			message =  "Best: " + str(scoreValue)
 			if scoreValue <= stage.gold:
 				colour = graphics.TEXTCOLOUR_GOLD
 				parString += "      Gold: " + str(stage.gold)
@@ -233,17 +233,18 @@ def renderScoreMessage(currentMenu, currentOption, scoreValue):
 
 		graphics.scoreText = descriptionFont.render(message, True, colour)
 		width = graphics.scoreText.get_width()
-		graphics.scoreTextPosition[0] = (gameglobals.size[0])//2 - width - 10
+		graphics.scoreTextPosition[0] = (gameglobals.size[0])//2 - width- 25
 
 		graphics.scoreText2 = descriptionFont.render(parString, True, WHITE)
 		width = graphics.scoreText2.get_width()
-		graphics.scoreTextPosition2[0] = (gameglobals.size[0])//2 + 10
+		graphics.scoreTextPosition2[0] = (gameglobals.size[0])//2 + 25
+
 
 def formatStandard(scoreValue):
 	if scoreValue == -1:
 		scoreValue = 0
 	elif scoreValue >= 10000:
-		return "Clear - 100%"
+		return "CLEAR : 100%"
 	return "Progress : " + str(scoreValue/100) + "%"
 
 def formatEndless(scoreValue):
