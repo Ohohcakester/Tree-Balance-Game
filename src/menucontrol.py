@@ -35,9 +35,9 @@ class MenuVars:
 		operations[0][2] = lambda : self.goToMenu(MenuScreen.mode_puzzle)
 		operations[0][3] = lambda : start_tutorial()
 
-		operations[1][0] = lambda : start_standard(0, 130, 20, 2200)
-		operations[1][1] = lambda : start_standard(1, 90, 30, 1600)
-		operations[1][2] = lambda : start_standard(2, 70, 40, 1000)
+		operations[1][0] = lambda : start_standard(0, 160, 16, 2000)
+		operations[1][1] = lambda : start_standard(1, 110, 25, 1600)
+		operations[1][2] = lambda : start_standard(2, 80, 40, 1000)
 		operations[1][3] = lambda : start_standard(3, 60, 80, 1000)
 
 		operations[2][0] = lambda : start_endless(0, 60, 6000)

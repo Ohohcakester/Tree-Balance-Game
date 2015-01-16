@@ -137,7 +137,7 @@ def initialiseTutorial():
 	global controllerUpdate, updateScore
 	eventsequences.initialise(-1)
 	controllerUpdate = lambda : update_tutorial()
-	updateScore = lambda : None
+	updateScore = lambda victory : None
 
 
 def initialisePuzzle(levelIndex, stage):

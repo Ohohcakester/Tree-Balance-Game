@@ -104,7 +104,7 @@ def main():
 
 	while True:
 		frameTime = pygame.time.get_ticks()
-		excessTime += frameTime - lastFrameTime - 20
+		excessTime += frameTime - lastFrameTime - 25
 		lastFrameTime = frameTime
 
 		if (excessTime > 50):

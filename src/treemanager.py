@@ -5,7 +5,7 @@ class AnimationTimer:
 
 	def __init__(self):
 		self.frame = 0
-		self.maxFrame = 15
+		self.maxFrame = 9
 		self.animating = True
 
 	def update(self):
