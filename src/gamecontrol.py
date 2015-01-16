@@ -38,6 +38,9 @@ class GameStats:
 	def queueTotalSize(self):
 		return gameglobals.opQueue.totalSize()
 
+	def getFourDigitPercentage(self):
+		return self.numOperations()*10000 // self.queueTotalSize()
+
 	def treeSize(self):
 		return gameglobals.tree.size()
 

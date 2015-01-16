@@ -1,35 +1,42 @@
+from queue import Queue
+
+numPuzzles = 30
+stages = {
+	1 : lambda : Stage1(),
+	2 : lambda : Stage2(),
+	3 : lambda : Stage3(),
+	4 : lambda : Stage4(),
+	5 : lambda : Stage5(),
+	6 : lambda : Stage6(),
+	7 : lambda : Stage7(),
+	8 : lambda : Stage8(),
+	9 : lambda : Stage9(),
+	10 : lambda : Stage10(),
+	11 : lambda : Stage11(),
+	12 : lambda : Stage12(),
+	13 : lambda : Stage13(),
+	14 : lambda : Stage14(),
+	15 : lambda : Stage15(),
+	16 : lambda : Stage16(),
+	17 : lambda : Stage17(),
+	18 : lambda : Stage18(),
+	19 : lambda : Stage19(),
+	20 : lambda : Stage20(),
+	21 : lambda : Stage21(),
+	22 : lambda : Stage22(),
+	23 : lambda : Stage23(),
+	24 : lambda : Stage24(),
+	25 : lambda : Stage25(),
+	26 : lambda : Stage26(),
+	27 : lambda : Stage27(),
+	28 : lambda : Stage28(),
+	29 : lambda : Stage29(),
+	30 : lambda : Stage30()
+}
 
 def getStage(stage):
-	if stage == 1: return Stage1()
-	elif stage == 2: return Stage2()
-	elif stage == 3: return Stage3()
-	elif stage == 4: return Stage4()
-	elif stage == 5: return Stage5()
-	elif stage == 6: return Stage6()
-	elif stage == 7: return Stage7()
-	elif stage == 8: return Stage8()
-	elif stage == 9: return Stage9()
-	elif stage == 10: return Stage10()
-	elif stage == 11: return Stage11()
-	elif stage == 12: return Stage12()
-	elif stage == 13: return Stage13()
-	elif stage == 14: return Stage14()
-	elif stage == 15: return Stage15()
-	elif stage == 16: return Stage16()
-	elif stage == 17: return Stage17()
-	elif stage == 18: return Stage18()
-	elif stage == 19: return Stage19()
-	elif stage == 20: return Stage20()
-	elif stage == 21: return Stage21()
-	elif stage == 22: return Stage22()
-	elif stage == 23: return Stage23()
-	elif stage == 24: return Stage24()
-	elif stage == 25: return Stage25()
-	elif stage == 26: return Stage26()
-	elif stage == 27: return Stage27()
-	elif stage == 28: return Stage28()
-	elif stage == 29: return Stage29()
-	elif stage == 30: return Stage30()
+	global stages
+	return stages[stage]()
 
 
 class Stage1:
@@ -37,8 +44,8 @@ class Stage1:
 		self.treeList = [7,6,5,4,3,2,1]
 		self.objective = 'Make the binary tree perfectly balanced! (full binary tree)'
 
-		#optimal = 5?
-		self.gold = 5
+		#optimal = 4?
+		self.gold = 4
 		self.par = 8
 
 	def winCondition(self, tree):
@@ -262,8 +269,8 @@ class Stage15:
 		self.objective = 'All nodes with balance 0 or -1'
 		
 		#optimal = ?
-		self.gold = 4
-		self.par = 6
+		self.gold = 10
+		self.par = 13
 
 	def winCondition(self, tree):
 		balances = [0,-1]

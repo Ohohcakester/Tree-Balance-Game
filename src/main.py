@@ -1,7 +1,7 @@
 import sys, pygame
 import keyinput, treemanager, draw, playercontrol
 import gameglobals, cameracontrols, maincontroller
-import menucontrol, menudraw
+import menucontrol, menudraw, savedata
 pygame.init()
 
 inMenu = True
@@ -22,7 +22,7 @@ def eventRead():
 
 
 # 0 = standard, 1 = endless, 2 = puzzle, 3 = tutorial
-def initialiseGame(args, mode):
+def initialiseGame(args, mode, levelIndex):
 	uninitialiseMenu()
 	
 	global inMenu, frame
@@ -36,22 +36,23 @@ def initialiseGame(args, mode):
 	cameracontrols.initialise()
 
 	if mode == 0: # standard
-		maincontroller.initialiseStandard(args[0], args[1], args[2])
+		maincontroller.initialiseStandard(levelIndex, args[0], args[1], args[2])
 		draw.initialiseStandard()
 	elif mode == 1: # endless
-		maincontroller.initialiseEndless(args[0], args[1])
+		maincontroller.initialiseEndless(levelIndex, args[0], args[1])
 		draw.initialiseEndless()
 	elif mode == 2: # puzzle
-		maincontroller.initialisePuzzle(args[0])
+		maincontroller.initialisePuzzle(levelIndex, args[0])
 		draw.initialisePuzzle()
 		treemanager.initialiseTreeImage()
 	elif mode == 3: # tutorial
 		maincontroller.initialiseTutorial()
 		draw.initialiseTutorial()
 
+
 def uninitialiseGame():
 	draw.uninitialise()
-	gameglobals.uninitialise()
+	gameglobals.uninitialiseGameData()
 
 def uninitialiseMenu():
 	menudraw.uninitialise()	
@@ -72,10 +73,10 @@ def initialiseMenu():
 	global inMenu
 	inMenu = True
 	menudraw.initialise()
-	menucontrol.initialise(lambda rate, size, hp : initialiseGame([rate, size, hp], 0),
-							lambda rate, hp : initialiseGame([rate, hp], 1),
-							lambda puzzleNo : initialiseGame([puzzleNo], 2),
-							lambda : initialiseGame(None, 3))
+	menucontrol.initialise(lambda index, rate, size, hp : initialiseGame([rate, size, hp], 0, index),
+							lambda index, rate, hp : initialiseGame([rate, hp], 1, index),
+							lambda puzzleNo : initialiseGame([puzzleNo], 2, puzzleNo-1),
+							lambda : initialiseGame(None, 3, None))
 
 def menuUpdate():
 	menucontrol.update()
@@ -95,6 +96,7 @@ def mainUpdate(willDraw):
 
 def main():
 	global inMenu, timer
+	savedata.startupInitialise()
 	initialiseMenu()
 
 	excessTime = 0

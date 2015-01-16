@@ -14,11 +14,12 @@ controller = None
 opQueue = None
 
 menu = None
+saveData = None
 
 eventSequence = None
 
 
-def uninitialise():
+def uninitialiseGameData():
 	global player, tree, cameraCenter, gameStats
 	global controller, opQueue, eventSequence
 	player = None

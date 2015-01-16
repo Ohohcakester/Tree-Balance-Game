@@ -1,4 +1,6 @@
-import gameglobals, pygame, pygame.font
+import gameglobals, puzzlelevels 
+import pygame, pygame.font
+from menucontrol import MenuScreen
 pygame.font.init()
 
 BACKGROUND_COLOUR = 0, 0, 0
@@ -25,7 +27,18 @@ class MenuGraphics:
 		self.currentMenu = -1
 		self.currentOption = -1
 		self.descriptionText = None
-		self.descriptionTextPosition = [0,gameglobals.size[1]-40]
+		self.descriptionTextPosition = [0,gameglobals.size[1]-55]
+
+		self.scoreValue = -2
+		self.scoreText = None
+		self.scoreTextPosition = [0,gameglobals.size[1]-30]
+		self.scoreText2 = None
+		self.scoreTextPosition2 = [0,gameglobals.size[1]-30]
+
+		self.TEXTCOLOUR_GOLD = 255, 240, 32
+		self.TEXTCOLOUR_PAR = 100, 240, 0
+		self.TEXTCOLOUR_ABOVEPAR = 255, 127, 127
+
 
 
 graphics = None
@@ -46,10 +59,15 @@ def drawMenuFrame():
 	screen.blit(graphics.background, [0,0])
 
 	menu = gameglobals.menu
-	drawMenu[menu.currentMenu](screen, menu.currentOption(), 
-		menu.optionsTextRender[menu.currentMenu])
-	drawDescriptionText(menu.currentMenu, menu.currentOptions[menu.currentMenu],
-					menu.descriptionTexts)
+
+	currentMenu = menu.currentMenu
+	currentOption = menu.currentOption()
+
+	drawMenu[currentMenu](screen, currentOption, menu.optionsTextRender[currentMenu])
+	checkSelectionChange(currentMenu, currentOption)
+	drawDescriptionText(menu.getDescriptionText())
+	drawScoreText(currentMenu, currentOption, menu.getScoreValue())
+
 	pygame.display.flip()
 
 
@@ -147,13 +165,88 @@ def drawTileButton(screen, message, index, renders, selection):
 	screen.blit(text, [centerPosition[0]-text.get_width()//2,
 					centerPosition[1]-text.get_height()//2])
 
+def checkSelectionChange(currentMenu, currentOption):
+	if currentMenu != graphics.currentMenu or currentOption != graphics.currentOption:
+		graphics.descriptionText = None
+		graphics.scoreText = None
+		graphics.scoreValue = None
+		graphics.currentMenu = currentMenu
+		graphics.currentOption = currentOption
 
-def drawDescriptionText(currentMenu, currentOption, descriptionTexts):
-	if graphics.descriptionText == None or currentMenu != graphics.currentMenu \
-			or currentOption != graphics.currentOption:
-		value = descriptionTexts[currentMenu][currentOption]
-		graphics.descriptionText = descriptionFont.render(value, True, WHITE)
+
+def drawDescriptionText(message):
+	global graphics
+	if graphics.descriptionText == None:
+		graphics.descriptionText = descriptionFont.render(message, True, WHITE)
 		width = graphics.descriptionText.get_width()
 		graphics.descriptionTextPosition[0] = (gameglobals.size[0] - width)//2
 	gameglobals.screen.blit(graphics.descriptionText, graphics.descriptionTextPosition)
 
+
+def drawScoreText(currentMenu, currentOption, scoreValue):
+	global graphics
+	if scoreValue == None:
+		return
+	if graphics.scoreText == None or graphics.scoreValue != scoreValue:
+		renderScoreMessage(currentMenu, currentOption, scoreValue)
+		graphics.scoreValue = scoreValue
+
+	gameglobals.screen.blit(graphics.scoreText, graphics.scoreTextPosition)
+	if graphics.scoreText2 != None:
+		gameglobals.screen.blit(graphics.scoreText2, graphics.scoreTextPosition2)
+
+
+def renderScoreMessage(currentMenu, currentOption, scoreValue):
+	global graphics
+
+	if currentMenu == MenuScreen.mode_standard:
+		message = formatStandard(scoreValue)
+		graphics.scoreText = descriptionFont.render(message, True, WHITE)
+		width = graphics.scoreText.get_width()
+		graphics.scoreTextPosition[0] = (gameglobals.size[0] - width)//2
+
+		graphics.scoreText2 = None
+
+	elif currentMenu == MenuScreen.mode_endless:
+		message = formatEndless(scoreValue)
+		graphics.scoreText = descriptionFont.render(message, True, WHITE)
+		width = graphics.scoreText.get_width()
+		graphics.scoreTextPosition[0] = (gameglobals.size[0] - width)//2
+
+		graphics.scoreText2 = None
+
+	elif currentMenu == MenuScreen.mode_puzzle:
+		stage = puzzlelevels.getStage(currentOption+1)
+		parString = "       Par: " + str(stage.par)
+		if scoreValue == -1:
+			message = "Not Completed"
+			colour = WHITE
+		else:
+			message =  "Score (Rotations): " + str(scoreValue)
+			if scoreValue <= stage.gold:
+				colour = graphics.TEXTCOLOUR_GOLD
+				parString += "      Gold: " + str(stage.gold)
+			elif scoreValue <= stage.par:
+				colour = graphics.TEXTCOLOUR_PAR
+			else:
+				colour = graphics.TEXTCOLOUR_ABOVEPAR
+
+		graphics.scoreText = descriptionFont.render(message, True, colour)
+		width = graphics.scoreText.get_width()
+		graphics.scoreTextPosition[0] = (gameglobals.size[0])//2 - width - 10
+
+		graphics.scoreText2 = descriptionFont.render(parString, True, WHITE)
+		width = graphics.scoreText2.get_width()
+		graphics.scoreTextPosition2[0] = (gameglobals.size[0])//2 + 10
+
+def formatStandard(scoreValue):
+	if scoreValue == -1:
+		scoreValue = 0
+	elif scoreValue >= 10000:
+		return "Clear - 100%"
+	return "Progress : " + str(scoreValue/100) + "%"
+
+def formatEndless(scoreValue):
+	if scoreValue == -1:
+		return "No recorded score"
+	return "Score (Ops) : " + str(scoreValue)

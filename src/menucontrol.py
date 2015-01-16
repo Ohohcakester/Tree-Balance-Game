@@ -8,7 +8,8 @@ class MenuScreen(IntEnum):
 	mode_puzzle = 3
 
 class MenuVars:
-	numOptions = [4, 4, 3, 30]
+	#each entry refers to the corresponding MenuScreen above.
+	numOptions = [4, 4, 3, puzzlelevels.numPuzzles]
 	tileColumns = 6;
 
 	def __init__(self):
@@ -34,18 +35,17 @@ class MenuVars:
 		operations[0][2] = lambda : self.goToMenu(MenuScreen.mode_puzzle)
 		operations[0][3] = lambda : start_tutorial()
 
-		operations[1][0] = lambda : start_standard(130, 20, 2200)
-		operations[1][1] = lambda : start_standard(90, 30, 1600)
-		operations[1][2] = lambda : start_standard(70, 40, 1000)
-		operations[1][3] = lambda : start_standard(60, 80, 1000)
+		operations[1][0] = lambda : start_standard(0, 130, 20, 2200)
+		operations[1][1] = lambda : start_standard(1, 90, 30, 1600)
+		operations[1][2] = lambda : start_standard(2, 70, 40, 1000)
+		operations[1][3] = lambda : start_standard(3, 60, 80, 1000)
 
-		operations[2][0] = lambda : start_endless(60, 6000)
-		operations[2][1] = lambda : start_endless(40, 4000) 
-		operations[2][2] = lambda : start_endless(20, 3000)
+		operations[2][0] = lambda : start_endless(0, 60, 6000)
+		operations[2][1] = lambda : start_endless(1, 40, 4000) 
+		operations[2][2] = lambda : start_endless(2, 20, 3000)
 
 		for i in range(0,self.numOptions[3]):
-			target = i+1
-			operations[3][i] = (lambda target : lambda : start_puzzle(target))(target)
+			operations[3][i] = (lambda target : lambda : start_puzzle(target))(i+1)
 
 		return operations
 
@@ -62,7 +62,7 @@ class MenuVars:
 		descriptions[1][2] = "Select a difficulty"
 		descriptions[1][3] = "Select a difficulty"
 
-		descriptions[2][0] = "Surive as long as you can."
+		descriptions[2][0] = "Survive as long as you can."
 		descriptions[2][1] = "The binary tree changes very quickly. Can you keep up with the pace?"
 		descriptions[2][2] = "The binary tree changes at a rate that is near impossible to keep up with."
 
@@ -80,6 +80,19 @@ class MenuVars:
 
 	def currentOption(self):
 		return self.currentOptions[self.currentMenu]
+
+	def getDescriptionText(self):
+		return self.descriptionTexts[self.currentMenu][self.currentOption()]
+
+	def getScoreValue(self):
+		if self.currentMenu == MenuScreen.mode_standard:
+			return gameglobals.saveData.standardScores[self.currentOption()]
+		elif self.currentMenu == MenuScreen.mode_endless:
+			return gameglobals.saveData.endlessScores[self.currentOption()]
+		elif self.currentMenu == MenuScreen.mode_puzzle:
+			return gameglobals.saveData.puzzleScores[self.currentOption()]
+		else:
+			return None
 
 	def goToMenu(self, toMenu):
 		self.currentMenu = toMenu

@@ -59,7 +59,7 @@ class Graphics:
 		self.rotationsTextPosition = [gameglobals.size[0]-180,50]
 		self.TEXTCOLOUR_GOLD = 255, 240, 32
 		self.TEXTCOLOUR_PAR = 100, 240, 0
-		self.TEXTCOLOUR_BELOWPAR = 255, 127, 127
+		self.TEXTCOLOUR_ABOVEPAR = 255, 127, 127
 
 		self.text_objective = None
 		self.objectiveTextPosition = [0, 55]
@@ -269,7 +269,7 @@ def drawScoreProgress():
 	global graphics
 	gameStats = gameglobals.gameStats
 
-	value = gameStats.numOperations()*10000 // gameStats.queueTotalSize() / 100
+	value = gameStats.getFourDigitPercentage()/100
 	if graphics.text_operations == None or graphics.text_operations_value != value:
 		graphics.text_operations = opsFont.render(str(value)+"%", True, OPS_TEXT_COLOUR)
 		graphics.text_operations_value = value
@@ -288,7 +288,7 @@ def drawScoreRotations():
 		elif value <= eventSequence.par:
 			colour = graphics.TEXTCOLOUR_PAR
 		else:
-			colour = graphics.TEXTCOLOUR_BELOWPAR
+			colour = graphics.TEXTCOLOUR_ABOVEPAR
 		graphics.text_operations = opsFont.render("Moves: " + str(value), True, colour)
 		graphics.text_operations_value = value
 	screen.blit(graphics.text_operations, graphics.rotationsTextPosition)
