@@ -282,6 +282,14 @@ class Tree:
 			return node
 
 
+	def canRotateRight(self, index):
+		return self.treeNodes[index].left != None
+
+
+	def canRotateLeft(self, index):
+		return self.treeNodes[index].right != None
+
+
 	def rotateRight(self, node):
 		if (node.left == None):
 			return False

@@ -5,6 +5,7 @@ class PlayerControl:
 	def __init__(self):
 		self.currentNode = None
 		self.rotations = 0
+		self.dialogOpen = False
 
 	def selectIfUnselected(self):
 		if self.currentNode != None:
@@ -15,28 +16,37 @@ class PlayerControl:
 		return gameglobals.gameStats.gameOver
 
 
+	def openDialog(self):
+		self.dialogOpen = True
+
+
+	def closeDialog(self):
+		if self.dialogOpen:
+			self.dialogOpen = False
+
 	def goLeft(self):
-		#if (self.gameOver()): return
+		if self.dialogOpen: return
 
 		self.selectIfUnselected()
 		if (self.currentNode != None and self.currentNode.left != None):
 			self.currentNode = self.currentNode.left
 
 	def goRight(self):
-		#if (self.gameOver()): return
+		if self.dialogOpen: return
 		
 		self.selectIfUnselected()
 		if (self.currentNode != None and self.currentNode.right != None):
 			self.currentNode = self.currentNode.right
 
 	def goUp(self):
-		#if (self.gameOver()): return
+		if self.dialogOpen: return
 		
 		self.selectIfUnselected()
 		if (self.currentNode != None and self.currentNode.parent != None):
 			self.currentNode = self.currentNode.parent
 
 	def rotateLeft(self):
+		if self.dialogOpen: return
 		if (self.gameOver()): return
 		if self.currentNode == None: return
 
@@ -45,6 +55,7 @@ class PlayerControl:
 			self.goUp()
 
 	def rotateRight(self):
+		if self.dialogOpen: return
 		if (self.gameOver()): return
 		if self.currentNode == None: return
 

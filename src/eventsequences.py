@@ -157,6 +157,8 @@ class PuzzleSequence(gameeventsequence.EventSequence):
 		gameglobals.opQueue = gamecontrol.OperationQueue()
 		self.pauseQueue()
 		self.setupStage(self.stage)
+		gameglobals.player.goUp()
+		gameglobals.player.openDialog()
 
 	def setup(self, stageDetails):
 		for i in stageDetails.treeList:

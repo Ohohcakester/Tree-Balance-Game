@@ -15,6 +15,7 @@ def keyPress(key):
 	elif key == pygame.K_ESCAPE:
 		gameglobals.gameStats.exitGame()
 	elif key == pygame.K_SPACE or key == pygame.K_RETURN:
+		gameglobals.player.closeDialog()
 		gameglobals.gameStats.exitIfGameOver()
 
 

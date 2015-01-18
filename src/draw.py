@@ -24,6 +24,12 @@ class Graphics:
 		squareRect = self.addSquare.get_rect()
 		self.squareHalfSize = squareRect[2]//2
 
+		self.arrowRight = pygame.image.load("assets/arrowsingle.png")
+		self.arrowLeft = pygame.transform.flip(self.arrowRight, True, False)
+		self.arrowDouble = pygame.image.load("assets/arrowdouble.png")
+		arrowRect = self.arrowDouble.get_rect()
+		self.arrowOffset = [-arrowRect[2]//2, -50]
+
 		self.text_operations = None
 		self.text_operations_value = None
 		self.text_treeSize = None
@@ -55,15 +61,20 @@ class Graphics:
 	def initialisePuzzleText(self):
 		size = gameglobals.size
 		self.text_par = None
-		self.parTextPosition = [gameglobals.size[0]-80,50]
-		self.rotationsTextPosition = [gameglobals.size[0]-180,50]
+		self.parTextPosition = [size[0]-80,50]
+		self.rotationsTextPosition = [size[0]-180,50]
 		self.TEXTCOLOUR_GOLD = 255, 240, 32
 		self.TEXTCOLOUR_PAR = 100, 240, 0
 		self.TEXTCOLOUR_ABOVEPAR = 255, 127, 127
 
 		self.text_objective = None
-		self.objectiveTextPosition = [0, 55]
-		self.promptTextPosition = [0, 80]
+		self.objectiveTextPosition = [0, size[1]//2-25]
+		self.promptTextPosition = [0, size[1]//2]
+		self.dialogOpen = True
+
+	def shiftPuzzleObjectiveText(self):
+		self.objectiveTextPosition[1] = 55
+		self.promptTextPosition[1] = 80
 
 
 
@@ -264,6 +275,7 @@ def drawScoreOps():
 		graphics.text_operations_value = value
 	screen.blit(graphics.text_operations, [20,70])
 
+
 def drawScoreProgress():
 	screen = gameglobals.screen
 	global graphics
@@ -274,6 +286,7 @@ def drawScoreProgress():
 		graphics.text_operations = opsFont.render(str(value)+"%", True, OPS_TEXT_COLOUR)
 		graphics.text_operations_value = value
 	screen.blit(graphics.text_operations, [20,70])
+
 
 def drawScoreRotations():
 	screen = gameglobals.screen
@@ -321,6 +334,7 @@ def drawTree(tree):
 		
 
 	drawPos = [0,0] #ignore this statement. I just need a 2-element list.
+
 	for nodeCircle in tree.nodeCircles:
 		balance = tree.balanceOf(nodeCircle)
 
@@ -340,6 +354,9 @@ def drawTree(tree):
 		drawPos[1] = positionY - graphics.nodeHalfSize
 		if gameglobals.player.isSelected(nodeCircle.index):
 			image = graphics.node_selected
+			arrowX = positionX
+			arrowY = positionY
+			arrowIndex = nodeCircle.index
 		else:
 			image = graphics.node_unselected
 		screen.blit(image, drawPos)
@@ -357,6 +374,27 @@ def drawTree(tree):
 		drawPos[0] = positionX-nodeCircle.renderedBalance.get_width()//2
 		drawPos[1] = positionY-nodeCircle.renderedBalance.get_height()//2 - balanceYOffset
 		screen.blit(nodeCircle.renderedBalance, drawPos)
+
+	drawArrow(arrowX, arrowY, arrowIndex)
+
+
+def drawArrow(nodeX, nodeY, index):
+	tree = gameglobals.tree
+	screen = gameglobals.screen
+	global graphics
+
+	if tree.canRotateRight(index):
+		if tree.canRotateLeft(index):
+			image = graphics.arrowDouble
+		else:
+			image = graphics.arrowRight
+	else:
+		if tree.canRotateLeft(index):
+			image = graphics.arrowLeft
+		else:
+			return
+	position = [nodeX + graphics.arrowOffset[0], nodeY + graphics.arrowOffset[1]]
+	screen.blit(image, position)
 
 
 def drawGameOverMessage():
@@ -380,8 +418,21 @@ def drawEndlessUI():
 	drawScoreOps()
 
 def drawPuzzleUI():
+	drawStartDialog()
 	drawScoreRotations()
 	drawPromptText()
+
+
+def drawStartDialog():
+	global graphics
+	if not graphics.dialogOpen: return
+	if gameglobals.player.dialogOpen:
+		size = gameglobals.size
+		rect = pygame.Rect(10, size[1]//2 -45, size[0]-10, 90)
+		pygame.draw.rect(gameglobals.screen, [40,40,40], rect)
+	else:
+		graphics.shiftPuzzleObjectiveText()
+		graphics.dialogOpen = False
 
 
 def drawTutorialText():
