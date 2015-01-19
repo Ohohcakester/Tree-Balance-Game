@@ -6,6 +6,13 @@ Use rotations to keep the binary tree in balance! Made using PyGame.
 The initial game was made in three days.
 [Write-up + videos](http://localhost/webpage/?page=treebalance)
 
+Setup
+=================
+1. Install [Python 3](https://www.python.org/downloads/) and [PyGame](http://pygame.org/download.shtml) (Python 3.4.2 recommended, might work with earlier versions of Python 3)
+2. Run ```python main.py``` in the src directory.
+
+Alternatively, a pre-compiled version is also available below.
+
 
 Gameplay
 =================
