@@ -4,7 +4,7 @@ pygame.font.init()
 class Graphics:
 
 	def __init__(self):
-		self.background = pygame.image.load("assets/bggraphic.png")
+		self.background = pygame.image.load("assets/bggraphic.jpg")
 		bgRect = self.background.get_rect()
 		self.bgHalfSize = [bgRect[2]//2, bgRect[3]//2]
 		

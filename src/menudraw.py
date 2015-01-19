@@ -22,7 +22,7 @@ descriptionFont = pygame.font.SysFont("verdana", 18)
 class MenuGraphics:
 
 	def __init__(self):
-		self.background = pygame.image.load("assets/menubg.png")
+		self.background = pygame.image.load("assets/menubg.jpg")
 
 		self.currentMenu = -1
 		self.currentOption = -1
