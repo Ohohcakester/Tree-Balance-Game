@@ -65,8 +65,8 @@ class Graphics:
 	def initialisePuzzleText(self):
 		size = gameglobals.size
 		self.text_par = None
-		self.parTextPosition = [size[0]-80,50]
-		self.rotationsTextPosition = [size[0]-180,50]
+		self.parTextPosition = [size[0]-80,35]
+		self.rotationsTextPosition = [size[0]-180,35]
 		self.TEXTCOLOUR_GOLD = 255, 240, 32
 		self.TEXTCOLOUR_PAR = 100, 240, 0
 		self.TEXTCOLOUR_ABOVEPAR = 255, 127, 127
@@ -84,8 +84,8 @@ class Graphics:
 		self.promptTextPosition[1] = size[1]-200
 
 	def shiftPuzzleObjectiveText(self):
-		self.objectiveTextPosition[1] = 55
-		self.promptTextPosition[1] = 80
+		self.objectiveTextPosition[1] = 45
+		self.promptTextPosition[1] = 72
 
 
 
@@ -188,18 +188,16 @@ def drawGameFrame():
 	screen.blit(graphics.background, bgPosition)
 
 	drawTree(gameglobals.tree)
-	drawUI()
+	drawUIPanel()
 	drawGameOverMessage()
 	drawOther()
 
 	pygame.display.flip()
 
 
-def drawUI():
+def drawUIPanel():
 	screen = gameglobals.screen
 	global graphics
-
-	gameStats = gameglobals.gameStats
 	size = gameglobals.size
 
 	# Draw Frame
@@ -245,6 +243,13 @@ def drawUI():
 
 		posX += queueDistance
 
+	drawText()
+
+
+def drawHealthBar():
+	size = gameglobals.size
+	screen = gameglobals.screen
+	gameStats = gameglobals.gameStats
 
 	# Draw Health Bar
 	maxWidth = size[0]*3//4
@@ -254,7 +259,6 @@ def drawUI():
 	rect.width //= gameStats.maxHp
 	pygame.draw.rect(screen, HPBAR_FRONT, rect)
 
-	drawText()
 
 
 def drawText():
@@ -420,15 +424,18 @@ def drawGameOverMessage():
 
 
 def drawTutorialUI():
+	drawHealthBar()
 	drawStartDialog()
 	drawTutorialText()
 	drawIntroText()
 	drawPromptText()
 
 def drawStandardUI():
+	drawHealthBar()
 	drawScoreProgress()
 
 def drawEndlessUI():
+	drawHealthBar()
 	drawScoreOps()
 
 def drawPuzzleUI():
