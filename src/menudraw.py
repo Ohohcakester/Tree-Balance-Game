@@ -4,8 +4,8 @@ from menucontrol import MenuScreen
 pygame.font.init()
 
 BACKGROUND_COLOUR = 0, 0, 0
-BUTTON_COLOUR_GLOW = 255, 255, 0
-BUTTON_COLOUR_INNER = 0, 64, 255
+BUTTON_COLOUR_GLOW = 255, 255, 96
+BUTTON_COLOUR_INNER = 32, 96, 224
 BUTTON_COLOUR_OUTER = 0, 0, 127
 WHITE = 255, 255, 255
 
@@ -22,8 +22,12 @@ descriptionFont = pygame.font.SysFont("verdana", 18)
 class MenuGraphics:
 
 	def __init__(self):
-		self.background = pygame.image.load("assets/menubg.jpg")
+		size = gameglobals.size
 
+		self.background = pygame.image.load("assets/menubg.jpg")
+		self.logo = pygame.image.load("assets/logo.png")
+		self.logoPos = [(size[0]-self.logo.get_rect()[2])//2, 26]
+		
 		self.currentMenu = -1
 		self.currentOption = -1
 		self.descriptionText = None
@@ -70,12 +74,19 @@ def drawMenuFrame():
 
 	pygame.display.flip()
 
+def drawLogo(screen):
+	global graphics
+	screen.blit(graphics.logo, graphics.logoPos)
+
+
+
 
 def drawMenu_main(screen, selection, renders):
 	drawButton(screen, "STANDARD", 0, renders, selection)
 	drawButton(screen, "ENDLESS", 1, renders, selection)
 	drawButton(screen, "PUZZLE", 2, renders, selection)
 	drawButton(screen, "TUTORIAL", 3, renders, selection)
+	drawLogo(screen)
 
 
 def drawMenu_standard(screen, selection, renders):
@@ -88,7 +99,6 @@ def drawMenu_endless(screen, selection, renders):
 	drawButton(screen, "SURVIVAL", 0, renders, selection)
 	drawButton(screen, "BLITZ", 1, renders, selection)
 	drawButton(screen, "SUPER BLITZ", 2, renders, selection)
-
 
 def drawMenu_puzzle(screen, selection, renders):
 	for i in range(0,len(renders)):
