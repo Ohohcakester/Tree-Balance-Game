@@ -55,7 +55,11 @@ class Graphics:
 		self.creditsText = None
 
 		size = gameglobals.size
-		self.promptTextPosition = [0, size[1]-200]
+		self.text_objective = None
+		self.objectiveTextPosition = [0, size[1]//2-25]
+		self.promptTextPosition = [0, size[1]//2]
+		self.dialogOpen = True
+		self.shiftObjectiveText = lambda : self.shiftTutorialObjectiveText()
 
 
 	def initialisePuzzleText(self):
@@ -71,6 +75,13 @@ class Graphics:
 		self.objectiveTextPosition = [0, size[1]//2-25]
 		self.promptTextPosition = [0, size[1]//2]
 		self.dialogOpen = True
+		self.shiftObjectiveText = lambda : self.shiftPuzzleObjectiveText()
+
+
+	def shiftTutorialObjectiveText(self):
+		size = gameglobals.size
+		self.objectiveTextPosition[1] = size[1]-225
+		self.promptTextPosition[1] = size[1]-200
 
 	def shiftPuzzleObjectiveText(self):
 		self.objectiveTextPosition[1] = 55
@@ -334,7 +345,7 @@ def drawTree(tree):
 		
 
 	drawPos = [0,0] #ignore this statement. I just need a 2-element list.
-
+	arrowIndex = None
 	for nodeCircle in tree.nodeCircles:
 		balance = tree.balanceOf(nodeCircle)
 
@@ -375,7 +386,8 @@ def drawTree(tree):
 		drawPos[1] = positionY-nodeCircle.renderedBalance.get_height()//2 - balanceYOffset
 		screen.blit(nodeCircle.renderedBalance, drawPos)
 
-	drawArrow(arrowX, arrowY, arrowIndex)
+	if arrowIndex != None:
+		drawArrow(arrowX, arrowY, arrowIndex)
 
 
 def drawArrow(nodeX, nodeY, index):
@@ -408,7 +420,9 @@ def drawGameOverMessage():
 
 
 def drawTutorialUI():
+	drawStartDialog()
 	drawTutorialText()
+	drawIntroText()
 	drawPromptText()
 
 def drawStandardUI():
@@ -429,10 +443,22 @@ def drawStartDialog():
 	if gameglobals.player.dialogOpen:
 		size = gameglobals.size
 		rect = pygame.Rect(10, size[1]//2 -45, size[0]-10, 90)
-		pygame.draw.rect(gameglobals.screen, [40,40,40], rect)
+		pygame.draw.rect(gameglobals.screen, [160,30,40], rect)
 	else:
-		graphics.shiftPuzzleObjectiveText()
+		graphics.shiftObjectiveText()
+		graphics.shiftObjectiveText = None
 		graphics.dialogOpen = False
+
+
+def drawIntroText():
+	global graphics
+	if not graphics.dialogOpen: return
+	screen = gameglobals.screen
+	if graphics.text_objective == None:
+		graphics.text_objective = opsFont.render("Welcome to the Tutorial!", True, TEXT_COLOUR)
+		width = graphics.text_objective.get_width()
+		graphics.objectiveTextPosition[0] = (gameglobals.size[0] - width)//2
+	screen.blit(graphics.text_objective, graphics.objectiveTextPosition)
 
 
 def drawTutorialText():

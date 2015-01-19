@@ -33,11 +33,15 @@ class TutorialSequence(gameeventsequence.EventSequence):
 		gameglobals.opQueue.enqueue(5, True)
 		gameglobals.opQueue.enqueue(1, True)
 		gameglobals.opQueue.enqueue(2, True)
+		gameglobals.player.openDialog()
 
-		self.setPromptText('Unbalance the tree to continue')
+		self.setPromptText('Follow the instructions in the white text to advance through the tutorial.')
 
 	def defineEvents(self):
-		self.addEvent(0, lambda : self.hpDrained(), lambda : self.t1_complete())
+		self.addEvent(0, lambda : self.dialogClosed(), lambda : self.startTutorial())
+
+	def dialogClosed(self):
+		return not gameglobals.player.dialogOpen
 
 	def setTimer(self, frames):
 		self.timerTime = frames
@@ -56,6 +60,11 @@ class TutorialSequence(gameeventsequence.EventSequence):
 
 	def drainHp(self):
 		gameglobals.gameStats.hp = 0
+
+	def startTutorial(self):
+		self.setPromptText('Unbalance the tree to continue')
+		self.clearEvents()
+		self.addEvent(0, lambda : self.hpDrained(), lambda : self.t1_complete())
 
 	def t1_complete(self):
 		self.clearPromptText()
@@ -136,7 +145,7 @@ class TutorialSequence(gameeventsequence.EventSequence):
 		self.addEvent(2, lambda : self.fullHp(), lambda : self.t3_complete())
 
 	def t3_complete(self):
-		self.setPromptText('Congratulations! You have completed the tutorial!')
+		self.setPromptText('Congratulations! You have completed the tutorial! Go to 8.')
 		self.resumeQueue()
 
 	def winConditionImmediate(self):
