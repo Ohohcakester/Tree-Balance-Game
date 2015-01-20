@@ -42,5 +42,7 @@ Controls
 Details
 ===============
 Made using Python 3.4.2 / Pygame.
- 
-[Precompiled version](http://www.mediafire.com/download/4p5d3476bv1n0za/TreeBalance.rar)
+
+Precompiled version (download link) is in the Release Page.
+
+[Releases](https://github.com/Ohohcakester/Tree-Balance-Game/releases)
