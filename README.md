@@ -4,7 +4,7 @@ Tree Balance
 Use rotations to keep the binary tree in balance! Made using PyGame.
 
 The initial game was made in three days.
-[Write-up + videos](http://localhost/webpage/?page=treebalance)
+[Write-up + videos](http://ohoh.byethost7.com/?page=treebalance)
 
 Go to the [Release Page](https://github.com/Ohohcakester/Tree-Balance-Game/releases) to download the game.
 
