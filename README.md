@@ -1,5 +1,6 @@
 Tree Balance
 =================
+![screenshot](/../screenshot/screenshot/endless1.png?raw=true "Endless Mode")
 
 Use rotations to keep the binary tree in balance! Made using PyGame.
 
