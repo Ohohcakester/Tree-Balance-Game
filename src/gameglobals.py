@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import pygame
 
 size = width, height = 800, 600

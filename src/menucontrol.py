@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import gameglobals, puzzlelevels
 from enum import IntEnum
 
@@ -7,7 +8,7 @@ class MenuScreen(IntEnum):
 	mode_endless = 2
 	mode_puzzle = 3
 
-class MenuVars:
+class MenuVars(object):
 	#each entry refers to the corresponding MenuScreen above.
 	numOptions = [4, 4, 3, puzzlelevels.numPuzzles]
 	tileColumns = 6;
@@ -23,7 +24,7 @@ class MenuVars:
 	def generateEmptyArray(self):
 		numMenus = len(self.numOptions)
 		arr = [[]]*numMenus
-		for i in range(0,numMenus):
+		for i in xrange(0,numMenus):
 			arr[i] = [None]*self.numOptions[i]
 		return arr
 
@@ -44,7 +45,7 @@ class MenuVars:
 		operations[2][1] = lambda : start_endless(1, 40, 4000) 
 		operations[2][2] = lambda : start_endless(2, 20, 3000)
 
-		for i in range(0,self.numOptions[3]):
+		for i in xrange(0,self.numOptions[3]):
 			operations[3][i] = (lambda target : lambda : start_puzzle(target))(i+1)
 
 		return operations
@@ -52,21 +53,21 @@ class MenuVars:
 	def defineDescriptionTexts(self):
 		descriptions = self.generateEmptyArray()
 
-		descriptions[0][0] = "Standard Mode: Survive until the end of the queue!"
-		descriptions[0][1] = "Endless Mode: Survive as many operations as you can!"
-		descriptions[0][2] = "Puzzle Mode: Take your time and solve increasingly difficult puzzles!"
-		descriptions[0][3] = "Learn the rules of Tree Balance"
+		descriptions[0][0] = u"Standard Mode: Survive until the end of the queue!"
+		descriptions[0][1] = u"Endless Mode: Survive as many operations as you can!"
+		descriptions[0][2] = u"Puzzle Mode: Take your time and solve increasingly difficult puzzles!"
+		descriptions[0][3] = u"Learn the rules of Tree Balance"
 
-		descriptions[1][0] = "Select a difficulty"
-		descriptions[1][1] = "Select a difficulty"
-		descriptions[1][2] = "Select a difficulty"
-		descriptions[1][3] = "Select a difficulty"
+		descriptions[1][0] = u"Select a difficulty"
+		descriptions[1][1] = u"Select a difficulty"
+		descriptions[1][2] = u"Select a difficulty"
+		descriptions[1][3] = u"Select a difficulty"
 
-		descriptions[2][0] = "Survive as long as you can."
-		descriptions[2][1] = "The binary tree changes very quickly. Can you keep up with the pace?"
-		descriptions[2][2] = "The binary tree changes at a rate that is near impossible to keep up with."
+		descriptions[2][0] = u"Survive as long as you can."
+		descriptions[2][1] = u"The binary tree changes very quickly. Can you keep up with the pace?"
+		descriptions[2][2] = u"The binary tree changes at a rate that is near impossible to keep up with."
 
-		for i in range(0,self.numOptions[3]):
+		for i in xrange(0,self.numOptions[3]):
 			descriptions[3][i] = puzzlelevels.getStage(i+1).objective
 
 		return descriptions

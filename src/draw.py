@@ -1,32 +1,34 @@
+from __future__ import division
+from __future__ import absolute_import
 import gameglobals, pygame, pygame.font
 pygame.font.init()
 
-class Graphics:
+class Graphics(object):
 
 	def __init__(self):
-		self.background = pygame.image.load("assets/bggraphic.jpg")
+		self.background = pygame.image.load(u"assets/bggraphic.jpg")
 		bgRect = self.background.get_rect()
 		self.bgHalfSize = [bgRect[2]//2, bgRect[3]//2]
 		
-		self.node_unselected = pygame.image.load("assets/node.png")
-		self.node_selected = pygame.image.load("assets/nodeSelected.png")
+		self.node_unselected = pygame.image.load(u"assets/node.png")
+		self.node_selected = pygame.image.load(u"assets/nodeSelected.png")
 		nodeRect = self.node_selected.get_rect()
 		self.nodeHalfSize = nodeRect[2]//2
 
-		self.nodeGlow = pygame.image.load("assets/nodeglow.png")
+		self.nodeGlow = pygame.image.load(u"assets/nodeglow.png")
 		nodeGlowRect = self.nodeGlow.get_rect()
 		self.nodeGlowHalfSize = nodeGlowRect[2]//2
 
-		self.uiBar = pygame.image.load("assets/uibar.png")
+		self.uiBar = pygame.image.load(u"assets/uibar.png")
 
-		self.addSquare = pygame.image.load("assets/addSquare.png")
-		self.deleteSquare = pygame.image.load("assets/deleteSquare.png")
+		self.addSquare = pygame.image.load(u"assets/addSquare.png")
+		self.deleteSquare = pygame.image.load(u"assets/deleteSquare.png")
 		squareRect = self.addSquare.get_rect()
 		self.squareHalfSize = squareRect[2]//2
 
-		self.arrowRight = pygame.image.load("assets/arrowsingle.png")
+		self.arrowRight = pygame.image.load(u"assets/arrowsingle.png")
 		self.arrowLeft = pygame.transform.flip(self.arrowRight, True, False)
-		self.arrowDouble = pygame.image.load("assets/arrowdouble.png")
+		self.arrowDouble = pygame.image.load(u"assets/arrowdouble.png")
 		arrowRect = self.arrowDouble.get_rect()
 		self.arrowOffset = [-arrowRect[2]//2, -50]
 
@@ -42,14 +44,14 @@ class Graphics:
 
 	def initialiseTutorialText(self):
 		self.tutorialImages = [
-			pygame.image.load("assets/tutorialPanel1.png"),
-			pygame.image.load("assets/tutorialPanel2.png"),
-			pygame.image.load("assets/tutorialPanel3.png"),
-			pygame.image.load("assets/tutorialPanel4.png"),
-			pygame.image.load("assets/tutorialPanel5.png"),
-			pygame.image.load("assets/tutorialPanel6.png"),
-			pygame.image.load("assets/tutorialPanel7.png"),
-			pygame.image.load("assets/tutorialPanel8.png")]
+			pygame.image.load(u"assets/tutorialPanel1.png"),
+			pygame.image.load(u"assets/tutorialPanel2.png"),
+			pygame.image.load(u"assets/tutorialPanel3.png"),
+			pygame.image.load(u"assets/tutorialPanel4.png"),
+			pygame.image.load(u"assets/tutorialPanel5.png"),
+			pygame.image.load(u"assets/tutorialPanel6.png"),
+			pygame.image.load(u"assets/tutorialPanel7.png"),
+			pygame.image.load(u"assets/tutorialPanel8.png")]
 		self.tutorialPanelHeight = self.tutorialImages[0].get_height()
 
 		self.creditsText = None
@@ -90,12 +92,12 @@ class Graphics:
 
 
 	def gameOver(self, isVictory):
-		self.node_unselected = pygame.image.load("assets/nodeDead.png")
-		self.node_selected = pygame.image.load("assets/nodeSelectedDead.png")
+		self.node_unselected = pygame.image.load(u"assets/nodeDead.png")
+		self.node_selected = pygame.image.load(u"assets/nodeSelectedDead.png")
 		if isVictory:
-			self.gameOverMessage = pygame.image.load("assets/victory.png")
+			self.gameOverMessage = pygame.image.load(u"assets/victory.png")
 		else:
-			self.gameOverMessage = pygame.image.load("assets/defeat.png")
+			self.gameOverMessage = pygame.image.load(u"assets/defeat.png")
 
 		messageRect = self.gameOverMessage.get_rect()
 		self.messageHalfSize = [messageRect[2]//2, messageRect[3]//2]
@@ -105,9 +107,9 @@ offset = [gameglobals.size[0]//2, gameglobals.size[1]*5//11]
 balanceYOffset = 30
 normalColours = False
 
-font = pygame.font.SysFont("consolas", 20)
-statsFont = pygame.font.SysFont("verdana", 16)
-opsFont = pygame.font.SysFont("verdana", 18)
+font = pygame.font.SysFont(u"consolas", 20)
+statsFont = pygame.font.SysFont(u"verdana", 16)
+opsFont = pygame.font.SysFont(u"verdana", 18)
 #font = pygame.freetype.Font("font.ttf", 12)
 
 drawOther = lambda : None
@@ -216,11 +218,11 @@ def drawUIPanel():
 
 	if (queue.renderedText == None):
 		queue.renderedText = []
-		for i in range(0, queueSize):
-			text = font.render(str(operations[i][0]), True, TEXT_COLOUR)
+		for i in xrange(0, queueSize):
+			text = font.render(unicode(operations[i][0]), True, TEXT_COLOUR)
 			queue.renderedText.append(text)
 
-	for i in range (0,queueSize):
+	for i in xrange (0,queueSize):
 		text = queue.renderedText[i]
 		if (operations[i][1] == True): # add
 			image = graphics.addSquare
@@ -236,7 +238,7 @@ def drawUIPanel():
 
 		if i == 0:
 			if graphics.nextText == None:
-				graphics.nextText = font.render("NEXT", True, TEXT_COLOUR)
+				graphics.nextText = font.render(u"NEXT", True, TEXT_COLOUR)
 			drawPos[0] = posX-graphics.nextText.get_width()//2
 			drawPos[1] = posY-graphics.nextText.get_height()//2+27
 			screen.blit(graphics.nextText, drawPos)
@@ -268,13 +270,13 @@ def drawText():
 
 	value = gameStats.treeSize()
 	if graphics.text_treeSize == None or graphics.text_treeSize_value != value:
-		graphics.text_treeSize = statsFont.render("Size: " + str(value), True, TEXT_COLOUR)
+		graphics.text_treeSize = statsFont.render(u"Size: " + unicode(value), True, TEXT_COLOUR)
 		graphics.text_treeSize_value = value
 	screen.blit(graphics.text_treeSize, [20,30])
 
 	value = gameStats.treeHeight()
 	if graphics.text_treeHeight == None or graphics.text_treeHeight_value != value:
-		graphics.text_treeHeight = statsFont.render("Height: " + str(value), True, TEXT_COLOUR)
+		graphics.text_treeHeight = statsFont.render(u"Height: " + unicode(value), True, TEXT_COLOUR)
 		graphics.text_treeHeight_value = value
 	screen.blit(graphics.text_treeHeight, [20,50])
 
@@ -286,7 +288,7 @@ def drawScoreOps():
 
 	value = gameStats.numOperations()
 	if graphics.text_operations == None or graphics.text_operations_value != value:
-		graphics.text_operations = opsFont.render("Ops: " + str(value), True, OPS_TEXT_COLOUR)
+		graphics.text_operations = opsFont.render(u"Ops: " + unicode(value), True, OPS_TEXT_COLOUR)
 		graphics.text_operations_value = value
 	screen.blit(graphics.text_operations, [20,70])
 
@@ -298,7 +300,7 @@ def drawScoreProgress():
 
 	value = gameStats.getFourDigitPercentage()/100
 	if graphics.text_operations == None or graphics.text_operations_value != value:
-		graphics.text_operations = opsFont.render(str(value)+"%", True, OPS_TEXT_COLOUR)
+		graphics.text_operations = opsFont.render(unicode(value)+u"%", True, OPS_TEXT_COLOUR)
 		graphics.text_operations_value = value
 	screen.blit(graphics.text_operations, [20,70])
 
@@ -317,17 +319,17 @@ def drawScoreRotations():
 			colour = graphics.TEXTCOLOUR_PAR
 		else:
 			colour = graphics.TEXTCOLOUR_ABOVEPAR
-		graphics.text_operations = opsFont.render("Moves: " + str(value), True, colour)
+		graphics.text_operations = opsFont.render(u"Moves: " + unicode(value), True, colour)
 		graphics.text_operations_value = value
 	screen.blit(graphics.text_operations, graphics.rotationsTextPosition)
 
 	if graphics.text_par == None:
 		value = eventSequence.par
-		graphics.text_par = opsFont.render("Par: " + str(value), True, TEXT_COLOUR)
+		graphics.text_par = opsFont.render(u"Par: " + unicode(value), True, TEXT_COLOUR)
 	screen.blit(graphics.text_par, graphics.parTextPosition)
 
 	if graphics.text_objective == None:
-		graphics.text_objective = opsFont.render("OBJECTIVE", True, TEXT_COLOUR)
+		graphics.text_objective = opsFont.render(u"OBJECTIVE", True, TEXT_COLOUR)
 		width = graphics.text_objective.get_width()
 		graphics.objectiveTextPosition[0] = (gameglobals.size[0] - width)//2
 	screen.blit(graphics.text_objective, graphics.objectiveTextPosition)
@@ -379,13 +381,13 @@ def drawTree(tree):
 
 		if (nodeCircle.renderedText == None):
 			nodeCircle.renderedText = font.render(
-				str(tree.valueOf(nodeCircle)), True, NODE_TEXT_COLOUR)
+				unicode(tree.valueOf(nodeCircle)), True, NODE_TEXT_COLOUR)
 		drawPos[0] = positionX-nodeCircle.renderedText.get_width()//2
 		drawPos[1] = positionY-nodeCircle.renderedText.get_height()//2
 		screen.blit(nodeCircle.renderedText, drawPos)
 
 		if (nodeCircle.renderedBalance == None):
-			nodeCircle.renderedBalance = font.render(str(balance), True, TEXT_COLOUR)
+			nodeCircle.renderedBalance = font.render(unicode(balance), True, TEXT_COLOUR)
 		drawPos[0] = positionX-nodeCircle.renderedBalance.get_width()//2
 		drawPos[1] = positionY-nodeCircle.renderedBalance.get_height()//2 - balanceYOffset
 		screen.blit(nodeCircle.renderedBalance, drawPos)
@@ -462,7 +464,7 @@ def drawIntroText():
 	if not graphics.dialogOpen: return
 	screen = gameglobals.screen
 	if graphics.text_objective == None:
-		graphics.text_objective = opsFont.render("Welcome to the Tutorial!", True, TEXT_COLOUR)
+		graphics.text_objective = opsFont.render(u"Welcome to the Tutorial!", True, TEXT_COLOUR)
 		width = graphics.text_objective.get_width()
 		graphics.objectiveTextPosition[0] = (gameglobals.size[0] - width)//2
 	screen.blit(graphics.text_objective, graphics.objectiveTextPosition)
@@ -481,7 +483,7 @@ def drawTutorialText():
 
 	if index == 7:
 		if graphics.creditsText == None:
-			graphics.creditsText = font.render("Made by Oh", True, [170,0,132])
+			graphics.creditsText = font.render(u"Made by Oh", True, [170,0,132])
 		position = [size[0] - 130, size[1]-35]
 		screen.blit(graphics.creditsText, position)
 

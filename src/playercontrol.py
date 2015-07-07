@@ -1,6 +1,7 @@
+from __future__ import absolute_import
 import gameglobals
 
-class PlayerControl:
+class PlayerControl(object):
 	
 	def __init__(self):
 		self.currentNode = None

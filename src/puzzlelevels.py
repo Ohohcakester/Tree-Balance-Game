@@ -1,4 +1,5 @@
-from queue import Queue
+from __future__ import absolute_import
+from Queue import Queue
 
 numPuzzles = 30
 stages = {
@@ -39,10 +40,10 @@ def getStage(stage):
 	return stages[stage]()
 
 
-class Stage1:
+class Stage1(object):
 	def __init__(self):
 		self.treeList = [7,6,5,4,3,2,1]
-		self.objective = 'Make the binary tree perfectly balanced! (full binary tree)'
+		self.objective = u'Make the binary tree perfectly balanced! (full binary tree)'
 
 		#optimal = 4?
 		self.gold = 4
@@ -52,10 +53,10 @@ class Stage1:
 		return tree.height == 3
 
 
-class Stage2:
+class Stage2(object):
 	def __init__(self):
 		self.treeList = [2,1,6,5,7,3,4]
-		self.objective = 'Make 4 the root! (the top of the tree)'
+		self.objective = u'Make 4 the root! (the top of the tree)'
 
 		#optimal = 4
 		self.gold = 4
@@ -65,10 +66,10 @@ class Stage2:
 		return tree.root != None and tree.root.data == 4
 
 
-class Stage3:
+class Stage3(object):
 	def __init__(self):
 		self.treeList = [3,2,7,1,5,4,6]
-		self.objective = 'Make the binary tree perfectly balanced! (full binary tree)'
+		self.objective = u'Make the binary tree perfectly balanced! (full binary tree)'
 
 		#optimal = 6?
 		self.gold = 6
@@ -78,10 +79,10 @@ class Stage3:
 		return tree.height == 3
 
 
-class Stage4:
+class Stage4(object):
 	def __init__(self):
 		self.treeList = [3,2,7,1,5,4,6]
-		self.objective = 'Maximise the tree height'
+		self.objective = u'Maximise the tree height'
 
 		#optimal = ?
 		self.gold = 3
@@ -91,10 +92,10 @@ class Stage4:
 		return tree.height == 7
 
 
-class Stage5:
+class Stage5(object):
 	def __init__(self):
 		self.treeList = [4,2,6,1,3,5,7]
-		self.objective = 'Make 5 the right child of 3'
+		self.objective = u'Make 5 the right child of 3'
 		
 		#optimal = ?
 		self.gold = 4
@@ -106,10 +107,10 @@ class Stage5:
 		return nodeR != None and nodeR.data == 5
 
 
-class Stage6:
+class Stage6(object):
 	def __init__(self):
 		self.treeList = [4,2,1,3]
-		self.objective = 'Mirror the tree!'
+		self.objective = u'Mirror the tree!'
 		
 		#optimal = ?
 		self.gold = 4
@@ -119,26 +120,26 @@ class Stage6:
 		return tree.levelOrderMatches([1,3,2,4])
 
 
-class Stage7:
+class Stage7(object):
 	def __init__(self):
 		self.treeList = [8,7,9,6,10,3,13,2,4,12,14,1,5,11,15]
-		self.objective = 'Give all nodes a non-negative balance.'
+		self.objective = u'Give all nodes a non-negative balance.'
 		
 		#optimal = ?
 		self.gold = 4
 		self.par = 6
 
 	def winCondition(self, tree):
-		for i in range(0,len(tree.treeNodes)):
+		for i in xrange(0,len(tree.treeNodes)):
 			if tree.treeNodes[i].balance < 0:
 				return False
 		return True
 
 
-class Stage8:
+class Stage8(object):
 	def __init__(self):
 		self.treeList = [8,7,9,6,10,3,13,2,4,12,14,1,5,11,15]
-		self.objective = 'Make the binary tree perfectly balanced! (full binary tree)'
+		self.objective = u'Make the binary tree perfectly balanced! (full binary tree)'
 		
 		#optimal = ?
 		self.gold = 8
@@ -148,10 +149,10 @@ class Stage8:
 		return tree.height == 4
 
 
-class Stage9:
+class Stage9(object):
 	def __init__(self):
 		self.treeList = [1,9,2,8,3,7,4,6,5]
-		self.objective = 'Mirror the tree!'
+		self.objective = u'Mirror the tree!'
 		
 		#optimal = ?
 		self.gold = 4
@@ -161,10 +162,10 @@ class Stage9:
 		return tree.levelOrderMatches([9,1,8,2,7,3,6,4,5])
 
 
-class Stage10:
+class Stage10(object):
 	def __init__(self):
 		self.treeList = [4,2,6,1,3,5]
-		self.objective = 'One node with balance 3, one node with balance -3.'
+		self.objective = u'One node with balance 3, one node with balance -3.'
 		
 		#optimal = ?
 		self.gold = 4
@@ -173,7 +174,7 @@ class Stage10:
 	def winCondition(self, tree):
 		pos3 = False
 		neg3 = False
-		for i in range(0,len(tree.treeNodes)):
+		for i in xrange(0,len(tree.treeNodes)):
 			if tree.treeNodes[i].balance == 3:
 				pos3 = True
 			elif tree.treeNodes[i].balance == -3:
@@ -183,10 +184,10 @@ class Stage10:
 		return False
 
 
-class Stage11:
+class Stage11(object):
 	def __init__(self):
 		self.treeList = [13,3,15,1,4,14,2,10,9,12,7,11,5,8,6]
-		self.objective = 'Maximise the height of the tree!'
+		self.objective = u'Maximise the height of the tree!'
 		
 		#optimal = ?
 		self.gold = 7
@@ -196,10 +197,10 @@ class Stage11:
 		return tree.height == 15
 
 
-class Stage12:
+class Stage12(object):
 	def __init__(self):
 		self.treeList = [8,4,11,2,6,9,13,1,3,5,7,10,12,14]
-		self.objective = 'Mirror the tree!'
+		self.objective = u'Mirror the tree!'
 		
 		#optimal = ?
 		self.gold = 6
@@ -209,10 +210,10 @@ class Stage12:
 		return tree.levelOrderMatches([7,4,11,2,6,9,13,1,3,5,8,10,12,14])
 
 
-class Stage13:
+class Stage13(object):
 	def __init__(self):
 		self.treeList = [8,1,9,2,4,3,5,6,7]
-		self.objective = 'Make the tree symmetrical!'
+		self.objective = u'Make the tree symmetrical!'
 		
 		#optimal = ?
 		self.gold = 4
@@ -241,11 +242,11 @@ class Stage13:
 		return True
 
 
-class Stage14:
+class Stage14(object):
 	def __init__(self):
 		self.treeList = [3,1,6,2,4,8,5,7]
-		self.objective = 'Numbers <5 have positive balance, ' + \
-						'Numbers >5 have negative balance.'
+		self.objective = u'Numbers <5 have positive balance, ' + \
+						u'Numbers >5 have negative balance.'
 		
 		#optimal = ?
 		self.gold = 4
@@ -253,7 +254,7 @@ class Stage14:
 
 	def winCondition(self, tree):
 		nodes = tree.treeNodes
-		for i in  range(0,len(nodes)):
+		for i in  xrange(0,len(nodes)):
 			if nodes[i].data < 5:
 				if nodes[i].balance <= 0:
 					return False
@@ -263,10 +264,10 @@ class Stage14:
 		return True
 		
 
-class Stage15:
+class Stage15(object):
 	def __init__(self):
 		self.treeList = [4,12,2,9,15,8,18,13,11,7,3,1,10,14,5,16,17,6]
-		self.objective = 'All nodes with balance 0 or -1'
+		self.objective = u'All nodes with balance 0 or -1'
 		
 		#optimal = ?
 		self.gold = 10
@@ -274,16 +275,16 @@ class Stage15:
 
 	def winCondition(self, tree):
 		balances = [0,-1]
-		for i in range(0,len(tree.treeNodes)):
+		for i in xrange(0,len(tree.treeNodes)):
 			if tree.treeNodes[i].balance not in balances:
 				return False
 		return True
 
 
-class Stage16: #HARD!
+class Stage16(object): #HARD!
 	def __init__(self):
 		self.treeList = [7,2,9,1,4,8,11,3,6,10,13,5,12,15,14]
-		self.objective = 'Mirror the tree!'
+		self.objective = u'Mirror the tree!'
 		
 		#optimal = ?
 		self.gold = 13
@@ -293,11 +294,11 @@ class Stage16: #HARD!
 		return tree.levelOrderMatches([9,7,14,5,8,12,15,3,6,10,13,1,4,11,2])
 		
 
-class Stage17:
+class Stage17(object):
 	def __init__(self):
 		self.treeList = [4,2,9,1,3,5,11,7,10,12,6,8]
-		self.objective = 'Maximise the height (5) while keeping the tree balanced!' +\
-						' (balance between -1 and 1)'
+		self.objective = u'Maximise the height (5) while keeping the tree balanced!' +\
+						u' (balance between -1 and 1)'
 		
 		#optimal = ?
 		self.gold = 6
@@ -306,16 +307,16 @@ class Stage17:
 	def winCondition(self, tree):
 		if tree.height != 5:
 			return False
-		for i in range(0,len(tree.treeNodes)):
+		for i in xrange(0,len(tree.treeNodes)):
 			if tree.treeNodes[i].balance > 1 or tree.treeNodes[i].balance < -1:
 				return False
 		return True
 
 
-class Stage18:
+class Stage18(object):
 	def __init__(self):
 		self.treeList = [5,1,9,4,6,10,2,7,11,3,8]
-		self.objective = 'Mirror the tree!'
+		self.objective = u'Mirror the tree!'
 		
 		#optimal = ?
 		self.gold = 15 #(probably improvable?)
@@ -325,17 +326,17 @@ class Stage18:
 		return tree.levelOrderMatches([7,3,11,2,6,8,1,5,10,4,9])
 
 
-class Stage19:
+class Stage19(object):
 	def __init__(self):
 		self.treeList = [5,3,8,2,4,6,9,1,7]
-		self.objective = 'Only multiples of 4 have non-zero balance!'
+		self.objective = u'Only multiples of 4 have non-zero balance!'
 		
 		#optimal = ?
 		self.gold = 5 #(probably improvable?)
 		self.par = 18
 
 	def winCondition(self, tree):
-		for i in range(0,len(tree.treeNodes)):
+		for i in xrange(0,len(tree.treeNodes)):
 			if tree.treeNodes[i].data%4 == 0:
 				if tree.treeNodes[i].balance == 0:
 					return False
@@ -345,10 +346,10 @@ class Stage19:
 		return True
 
 
-class Stage20: #HARD!
+class Stage20(object): #HARD!
 	def __init__(self):
 		self.treeList = [6,2,11,1,4,8,12,3,5,7,9,10]
-		self.objective = 'All even nodes below the odd nodes!'
+		self.objective = u'All even nodes below the odd nodes!'
 		
 		#optimal = ?
 		self.gold = 11 #(probably improvable?)
@@ -358,7 +359,7 @@ class Stage20: #HARD!
 		heights = tree.generateHeightArray()
 		maxOdd = 0
 		minEven = 10000
-		for i in range(0,len(tree.treeNodes)):
+		for i in xrange(0,len(tree.treeNodes)):
 			if tree.treeNodes[i].data%2 == 1: #odd
 				maxOdd = max(maxOdd, heights[i])
 			else: #even
@@ -367,10 +368,10 @@ class Stage20: #HARD!
 
 
 
-class Stage21:
+class Stage21(object):
 	def __init__(self):
 		self.treeList = [2,1,10,6,11,4,8,3,5,7,9]
-		self.objective = 'Exactly 3 nodes with balance 4.'
+		self.objective = u'Exactly 3 nodes with balance 4.'
 		
 		#optimal = ?
 		self.gold = 7
@@ -378,16 +379,16 @@ class Stage21:
 
 	def winCondition(self, tree):
 		count = 0
-		for i in range(0,len(tree.treeNodes)):
+		for i in xrange(0,len(tree.treeNodes)):
 			if tree.treeNodes[i].balance == 4:
 				count += 1
 		return count == 3
 
 
-class Stage22:
+class Stage22(object):
 	def __init__(self):
 		self.treeList = [6,1,8,4,5,3,2,7]
-		self.objective = 'Only primes have non-zero balance!'
+		self.objective = u'Only primes have non-zero balance!'
 		
 		#optimal = ?
 		self.gold = 7
@@ -395,7 +396,7 @@ class Stage22:
 
 	def winCondition(self, tree):
 		primes = [2,3,5,7]
-		for i in range(0,len(tree.treeNodes)):
+		for i in xrange(0,len(tree.treeNodes)):
 			if tree.treeNodes[i].data in primes:
 				if tree.treeNodes[i].balance == 0:
 					return False
@@ -405,17 +406,17 @@ class Stage22:
 		return True
 
 
-class Stage23:
+class Stage23(object):
 	def __init__(self):
 		self.treeList = [3,1,8,2,6,9,5,7,4]
-		self.objective = 'Even numbers have even balance, odd numbers have odd balance!'
+		self.objective = u'Even numbers have even balance, odd numbers have odd balance!'
 		
 		#optimal = ?
 		self.gold = 4
 		self.par = 7
 
 	def winCondition(self, tree):
-		for i in range(0,len(tree.treeNodes)):
+		for i in xrange(0,len(tree.treeNodes)):
 			if tree.treeNodes[i].data%2 == 0:
 				if tree.treeNodes[i].balance%2 == 1:
 					return False
@@ -425,10 +426,10 @@ class Stage23:
 		return True
 
 
-class Stage24:
+class Stage24(object):
 	def __init__(self):
 		self.treeList = [8,7,3,4,9,11,1,10,2,6,5]
-		self.objective = 'Exactly 5 nodes with balance 1 or -1'
+		self.objective = u'Exactly 5 nodes with balance 1 or -1'
 		
 		#optimal = ?
 		self.gold = 4
@@ -437,16 +438,16 @@ class Stage24:
 	def winCondition(self, tree):
 		count = 0
 		balances = [1,-1]
-		for i in range(0,len(tree.treeNodes)):
+		for i in xrange(0,len(tree.treeNodes)):
 			if tree.treeNodes[i].balance in balances:
 				count += 1
 		return count == 5
 
 
-class Stage25:
+class Stage25(object):
 	def __init__(self):
 		self.treeList = [5,4,7,6,9,8,11,10,12]
-		self.objective = 'Primes are below non-primes'
+		self.objective = u'Primes are below non-primes'
 		
 		#optimal = ?
 		self.gold = 8
@@ -457,7 +458,7 @@ class Stage25:
 		heights = tree.generateHeightArray()
 		maxNonPrime = 0
 		minPrime = 10000
-		for i in range(0,len(tree.treeNodes)):
+		for i in xrange(0,len(tree.treeNodes)):
 			if tree.treeNodes[i].data in primes:
 				minPrime = min(minPrime, heights[i])
 			else:
@@ -465,10 +466,10 @@ class Stage25:
 		return maxNonPrime < minPrime
 
 
-class Stage26:
+class Stage26(object):
 	def __init__(self):
 		self.treeList = [5,7,15,9,2,1,4,11,10,18,12,14,16,8,17,3,13,6]
-		self.objective = '5 nodes with balance +/- 3'
+		self.objective = u'5 nodes with balance +/- 3'
 		
 		#optimal = ?
 		self.gold = 5
@@ -477,16 +478,16 @@ class Stage26:
 	def winCondition(self, tree):
 		count = 0
 		balances = [-3,3]
-		for i in range(0,len(tree.treeNodes)):
+		for i in xrange(0,len(tree.treeNodes)):
 			if tree.treeNodes[i].balance in balances:
 				count += 1
 		return count == 5
 
 
-class Stage27:
+class Stage27(object):
 	def __init__(self):
 		self.treeList = [6,2,8,1,5,7,10,4,9,11,3]
-		self.objective = 'Make a tree, then mirror it with one rotation.'
+		self.objective = u'Make a tree, then mirror it with one rotation.'
 		
 		#optimal = ?
 		self.gold = 5
@@ -499,7 +500,7 @@ class Stage27:
 		free = 1
 		nodes = [-1]*len(self.treeList)
 		nodes[0] = tree.root
-		for i in range(0,len(self.treeList)):
+		for i in xrange(0,len(self.treeList)):
 			if nodes[i].left == None:
 				self.previousLeft[i] = -1
 			else:
@@ -521,7 +522,7 @@ class Stage27:
 		free = 1
 		nodes = [-1]*len(self.treeList)
 		nodes[0] = tree.root
-		for i in range(0,len(self.treeList)):
+		for i in xrange(0,len(self.treeList)):
 			if nodes[i].right == None:
 				if self.previousLeft[i] != -1:
 					return self.snapshotTreeReturnFalse(tree)
@@ -542,10 +543,10 @@ class Stage27:
 		return True
 
 
-class Stage28:
+class Stage28(object):
 	def __init__(self):
 		self.treeList = [5,7,15,9,18,1,4,20,11,2,10,19,12,14,16,8,17,3,13,6]
-		self.objective = 'No nodes with balance 1, -1, 2 or -2, or above 5/below -5'
+		self.objective = u'No nodes with balance 1, -1, 2 or -2, or above 5/below -5'
 		
 		#optimal = ?
 		self.gold = 17
@@ -553,7 +554,7 @@ class Stage28:
 
 	def winCondition(self, tree):
 		balances = [1,-1,2,-2]
-		for i in range(0,len(tree.treeNodes)):
+		for i in xrange(0,len(tree.treeNodes)):
 			if tree.treeNodes[i].balance in balances or \
 					tree.treeNodes[i].balance > 5 or \
 					tree.treeNodes[i].balance < -5:
@@ -561,10 +562,10 @@ class Stage28:
 		return True
 
 
-class Stage29:
+class Stage29(object):
 	def __init__(self):
 		self.treeList = [5,21,7,15,9,11,2,20,24,10,19,12,27,14,25,8,18,16,26,1,4,22,23,17,3,13,6]
-		self.objective = 'Maximise height (8) while keeping balances between -2 and 2.'
+		self.objective = u'Maximise height (8) while keeping balances between -2 and 2.'
 		
 		#optimal = ?
 		self.gold = 14
@@ -574,17 +575,17 @@ class Stage29:
 		if tree.height < 8:
 			return False
 		balances = [0,1,-1,2,-2]
-		for i in range(0,len(tree.treeNodes)):
+		for i in xrange(0,len(tree.treeNodes)):
 			if tree.treeNodes[i].balance not in balances:
 				return False
 		return True
 
 
 
-class Stage30:
+class Stage30(object):
 	def __init__(self):
 		self.treeList = [1]
-		self.objective = 'WIP'
+		self.objective = u'WIP'
 		
 		#optimal = ?
 		self.gold = 100

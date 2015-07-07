@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import gameglobals
 
 
@@ -12,7 +13,7 @@ def cameraUpdate():
 		targetPosition = currentNode.position
 
 	cameraCenter = gameglobals.cameraCenter
-	for i in range(0,2):
+	for i in xrange(0,2):
 		diff = -targetPosition[i] - cameraCenter[i]
 		diff *= 3
 		diff //= 50

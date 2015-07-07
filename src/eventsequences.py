@@ -1,5 +1,6 @@
+from __future__ import absolute_import
 import gameglobals, gameeventsequence, gamecontrol, puzzlelevels
-from queue import Queue
+from Queue import Queue
 
 def initialise(stage):
 	#-1 = tutorial.
@@ -35,7 +36,7 @@ class TutorialSequence(gameeventsequence.EventSequence):
 		gameglobals.opQueue.enqueue(2, True)
 		gameglobals.player.openDialog()
 
-		self.setPromptText('Follow the instructions in the white text to advance through the tutorial.')
+		self.setPromptText(u'Follow the instructions in the white text to advance through the tutorial.')
 
 	def defineEvents(self):
 		self.addEvent(0, lambda : self.dialogClosed(), lambda : self.startTutorial())
@@ -62,7 +63,7 @@ class TutorialSequence(gameeventsequence.EventSequence):
 		gameglobals.gameStats.hp = 0
 
 	def startTutorial(self):
-		self.setPromptText('Unbalance the tree to continue')
+		self.setPromptText(u'Unbalance the tree to continue')
 		self.clearEvents()
 		self.addEvent(0, lambda : self.hpDrained(), lambda : self.t1_complete())
 
@@ -79,7 +80,7 @@ class TutorialSequence(gameeventsequence.EventSequence):
 		return gameglobals.opQueue.size() <= atMost
 
 	def t2_start(self):
-		self.setPromptText('Balance the tree to continue. Hint: you need two rotations.')
+		self.setPromptText(u'Balance the tree to continue. Hint: you need two rotations.')
 		self.seqNo = 1
 		self.drainHp()
 		gameglobals.player.goUp()
@@ -98,7 +99,7 @@ class TutorialSequence(gameeventsequence.EventSequence):
 		self.addEvent(1, lambda : self.queueRemaining(0), lambda : self.t2b_start())
 
 	def t2b_start(self):
-		self.setPromptText('Balance the tree to continue')
+		self.setPromptText(u'Balance the tree to continue')
 		self.clearEvents()
 		self.setTimer(30)
 		self.addEvent(1, lambda : self.timerTick() and self.fullHp(),
@@ -119,7 +120,7 @@ class TutorialSequence(gameeventsequence.EventSequence):
 			self.t2_complete()
 
 	def t2c_start(self):
-		self.setPromptText('Balance the tree to continue')
+		self.setPromptText(u'Balance the tree to continue')
 		self.drainHp()
 		self.pauseQueue()
 		self.clearEvents()
@@ -138,14 +139,14 @@ class TutorialSequence(gameeventsequence.EventSequence):
 						lambda: self.t3_start())
 
 	def t3_start(self):
-		self.setPromptText('Balance the tree to continue')
+		self.setPromptText(u'Balance the tree to continue')
 		self.pauseQueue()
 		self.drainHp()
 		self.clearEvents()
 		self.addEvent(2, lambda : self.fullHp(), lambda : self.t3_complete())
 
 	def t3_complete(self):
-		self.setPromptText('Congratulations! You have completed the tutorial! Go to 8.')
+		self.setPromptText(u'Congratulations! You have completed the tutorial! Go to 8.')
 		self.resumeQueue()
 
 	def winConditionImmediate(self):

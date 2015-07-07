@@ -1,8 +1,10 @@
+from __future__ import absolute_import
 import os, gameglobals, puzzlelevels
+from io import open
 
-fileName = "save.dat"
+fileName = u"save.dat"
 
-class SaveData:
+class SaveData(object):
 	def __init__(self):
 		#-1 represents uncleared/unplayed
 		self.initialiseDefault()
@@ -16,23 +18,23 @@ class SaveData:
 		builders = []
 		builder = []
 		for score in self.standardScores:
-			builder.append(str(score))
-		builders.append(".".join(builder))
+			builder.append(unicode(score))
+		builders.append(u".".join(builder))
 
 		builder = []
 		for score in self.endlessScores:
-			builder.append(str(score))
-		builders.append(".".join(builder))
+			builder.append(unicode(score))
+		builders.append(u".".join(builder))
 
 		builder = []
 		for score in self.puzzleScores:
-			builder.append(str(score))
-		builders.append(".".join(builder))
+			builder.append(unicode(score))
+		builders.append(u".".join(builder))
 
-		return "@".join(builders)
+		return u"@".join(builders)
 
 	def unserialize(self, data): #set variables
-		builder = data.split("@")
+		builder = data.split(u"@")
 		success = self.readIntoArray(builder[0], self.standardScores,
 							lambda value : self.standardCheck(value)) and \
 				self.readIntoArray(builder[1], self.endlessScores,
@@ -52,10 +54,10 @@ class SaveData:
 		return value >= -1
 
 	def readIntoArray(self, data, array, meetsCondition):
-		builder = data.split(".")
+		builder = data.split(u".")
 		if len(builder) != len(array):
 			return False
-		for i in range(0,len(builder)):
+		for i in xrange(0,len(builder)):
 			value = int(builder[i])
 			if meetsCondition(value):
 				array[i] = value
@@ -93,13 +95,13 @@ def write(saveData):
 	data = saveData.serialize()
 	data = encrypt(data)
 	global fileName
-	f = open(fileName, 'w+', encoding='utf-8')
+	f = open(fileName, u'w+', encoding=u'utf-8')
 	f.write(data)
 
 def read(saveData):
 	global fileName
 	if os.path.isfile(fileName):
-		f = open(fileName, 'r', encoding='utf-8')
+		f = open(fileName, u'r', encoding=u'utf-8')
 		data = f.read()
 		data = decrypt(data)
 		saveData.unserialize(data)
@@ -109,46 +111,46 @@ def encrypt(input):
 	arr = []
 	for i in input:
 		arr.append(ord(i))
-	for i in range(1,len(arr)):
+	for i in xrange(1,len(arr)):
 		arr[i] += arr[i-1]
 		arr[i] %= 256
 		if arr[i] < 0: arr[i] += 256
-	for i in range(len(arr)-2,-1,-1):
+	for i in xrange(len(arr)-2,-1,-1):
 		arr[i] += arr[i+1]
 		arr[i] %= 256
 		if arr[i] < 0: arr[i] += 256
-	for i in range(0,len(arr)):
+	for i in xrange(0,len(arr)):
 		arr[i] += (177*i)%256
 		arr[i] %= 256
 		if arr[i] < 0: arr[i] += 256
 
-	for i in range(0,len(arr)):
+	for i in xrange(0,len(arr)):
 		arr[i] += 32
 		#print(arr[i])
-	for i in range(0,len(arr)):
-		arr[i] = chr(arr[i])
-	return "".join(arr)
+	for i in xrange(0,len(arr)):
+		arr[i] = unichr(arr[i])
+	return u"".join(arr)
 
 def decrypt(input):
 	arr = []
 	for i in input:
 		arr.append(ord(i))
-	for i in range(0,len(arr)):
+	for i in xrange(0,len(arr)):
 		arr[i] -= 32
 
-	for i in range(0,len(arr)):
+	for i in xrange(0,len(arr)):
 		arr[i] -= (177*i)%256
 		arr[i] %= 256
 		if arr[i] < 0: arr[i] += 256
-	for i in range(0,len(arr)-1):
+	for i in xrange(0,len(arr)-1):
 		arr[i] -= arr[i+1]
 		arr[i] %= 256
 		if arr[i] < 0: arr[i] += 256
-	for i in range(len(arr)-1,0,-1):
+	for i in xrange(len(arr)-1,0,-1):
 		arr[i] -= arr[i-1]
 		arr[i] %= 256
 		if arr[i] < 0: arr[i] += 256
 
-	for i in range(0,len(arr)):
-		arr[i] = chr(arr[i])
-	return "".join(arr)
+	for i in xrange(0,len(arr)):
+		arr[i] = unichr(arr[i])
+	return u"".join(arr)

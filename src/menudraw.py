@@ -1,3 +1,5 @@
+from __future__ import division
+from __future__ import absolute_import
 import gameglobals, puzzlelevels 
 import pygame, pygame.font
 from menucontrol import MenuScreen
@@ -16,16 +18,16 @@ drawMenu = [
 	lambda screen, selection, renders : drawMenu_puzzle(screen, selection, renders)
 ]
 
-font = pygame.font.SysFont("verdana", 32)
-descriptionFont = pygame.font.SysFont("verdana", 18)
+font = pygame.font.SysFont(u"verdana", 32)
+descriptionFont = pygame.font.SysFont(u"verdana", 18)
 
-class MenuGraphics:
+class MenuGraphics(object):
 
 	def __init__(self):
 		size = gameglobals.size
 
-		self.background = pygame.image.load("assets/menubg.jpg")
-		self.logo = pygame.image.load("assets/logo.png")
+		self.background = pygame.image.load(u"assets/menubg.jpg")
+		self.logo = pygame.image.load(u"assets/logo.png")
 		self.logoPos = [(size[0]-self.logo.get_rect()[2])//2, 26]
 		
 		self.currentMenu = -1
@@ -82,27 +84,27 @@ def drawLogo(screen):
 
 
 def drawMenu_main(screen, selection, renders):
-	drawButton(screen, "STANDARD", 0, renders, selection)
-	drawButton(screen, "ENDLESS", 1, renders, selection)
-	drawButton(screen, "PUZZLE", 2, renders, selection)
-	drawButton(screen, "TUTORIAL", 3, renders, selection)
+	drawButton(screen, u"STANDARD", 0, renders, selection)
+	drawButton(screen, u"ENDLESS", 1, renders, selection)
+	drawButton(screen, u"PUZZLE", 2, renders, selection)
+	drawButton(screen, u"TUTORIAL", 3, renders, selection)
 	drawLogo(screen)
 
 
 def drawMenu_standard(screen, selection, renders):
-	drawButton(screen, "EASY", 0, renders, selection)
-	drawButton(screen, "NORMAL", 1, renders, selection)
-	drawButton(screen, "HARD", 2, renders, selection)
-	drawButton(screen, "INSANE", 3, renders, selection)
+	drawButton(screen, u"EASY", 0, renders, selection)
+	drawButton(screen, u"NORMAL", 1, renders, selection)
+	drawButton(screen, u"HARD", 2, renders, selection)
+	drawButton(screen, u"INSANE", 3, renders, selection)
 
 def drawMenu_endless(screen, selection, renders):
-	drawButton(screen, "SURVIVAL", 0, renders, selection)
-	drawButton(screen, "BLITZ", 1, renders, selection)
-	drawButton(screen, "SUPER BLITZ", 2, renders, selection)
+	drawButton(screen, u"SURVIVAL", 0, renders, selection)
+	drawButton(screen, u"BLITZ", 1, renders, selection)
+	drawButton(screen, u"SUPER BLITZ", 2, renders, selection)
 
 def drawMenu_puzzle(screen, selection, renders):
-	for i in range(0,len(renders)):
-		drawTileButton(screen, str(i+1), i, renders, selection)
+	for i in xrange(0,len(renders)):
+		drawTileButton(screen, unicode(i+1), i, renders, selection)
 
 
 #returns [centerPosition, text]
@@ -227,15 +229,15 @@ def renderScoreMessage(currentMenu, currentOption, scoreValue):
 
 	elif currentMenu == MenuScreen.mode_puzzle:
 		stage = puzzlelevels.getStage(currentOption+1)
-		parString = "Par: " + str(stage.par)
+		parString = u"Par: " + unicode(stage.par)
 		if scoreValue == -1:
-			message = "Not Completed"
+			message = u"Not Completed"
 			colour = WHITE
 		else:
-			message =  "Best: " + str(scoreValue)
+			message =  u"Best: " + unicode(scoreValue)
 			if scoreValue <= stage.gold:
 				colour = graphics.TEXTCOLOUR_GOLD
-				parString += "      Gold: " + str(stage.gold)
+				parString += u"      Gold: " + unicode(stage.gold)
 			elif scoreValue <= stage.par:
 				colour = graphics.TEXTCOLOUR_PAR
 			else:
@@ -254,10 +256,10 @@ def formatStandard(scoreValue):
 	if scoreValue == -1:
 		scoreValue = 0
 	elif scoreValue >= 10000:
-		return "CLEAR : 100%"
-	return "Progress : " + str(scoreValue/100) + "%"
+		return u"CLEAR : 100%"
+	return u"Progress : " + unicode(scoreValue/100) + u"%"
 
 def formatEndless(scoreValue):
 	if scoreValue == -1:
-		return "No recorded score"
-	return "Score (Ops) : " + str(scoreValue)
+		return u"No recorded score"
+	return u"Score (Ops) : " + unicode(scoreValue)

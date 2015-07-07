@@ -1,8 +1,10 @@
+from __future__ import division
+from __future__ import absolute_import
 import gameglobals
 import random
 
 
-class GameStats:
+class GameStats(object):
 
 	def __init__(self, maxHp, rate):
 		self.maxHp = maxHp
@@ -73,7 +75,7 @@ class GameStats:
 
 
 #Carries add / delete operations.
-class OperationQueue:
+class OperationQueue(object):
 	nextFewSize = 10
 
 	def __init__(self):
@@ -130,14 +132,14 @@ class OperationQueue:
 		self.renderedText = None
 
 	def onlyDeletionsLeft(self):
-		for i in range(self.index,len(self.queue)):
+		for i in xrange(self.index,len(self.queue)):
 			if self.queue[i][1] == True:
 				return False
 		return True
 		
 
 
-class OperationController:
+class OperationController(object):
 
 	def __init__(self, size):
 		self.queue = self.initialiseQueue(size)
@@ -181,25 +183,25 @@ class OperationController:
 
 		numNewNumbers = self.size - len(pendingInserts)
 		self.size += numNewNumbers
-		for i in range(0, numNewNumbers):
+		for i in xrange(0, numNewNumbers):
 			pendingInserts.append(self.nextUnusedNumber)
 			self.nextUnusedNumber += 1
 		
 		random.shuffle(pendingInserts)
-		"""
+		u"""
 		a = pendingInserts[:]
 		a.sort()
 		print(a)
 		print("SIZE " + str(self.size))
 		"""
 		opSequence = self.initialiseOpSequence(len(pendingInserts))
-		for i in range(0,len(pendingDeletes)):
+		for i in xrange(0,len(pendingDeletes)):
 			opSequence.append(False)
 		
 		operations = []
 		insertedList = pendingDeletes
 		index = 0
-		for i in range(0,len(opSequence)):
+		for i in xrange(0,len(opSequence)):
 			if opSequence[i] == True:
 				#insertion
 				operations.append([pendingInserts[index], True])
@@ -219,11 +221,11 @@ class OperationController:
 		queue = OperationQueue()
 
 		opSequence = self.initialiseOpSequence(size)
-		numbers = list(range(0,size))
+		numbers = range(0,size)
 		random.shuffle(numbers)
 		insertedList = []
 		index = 0
-		for i in range(0,size*2):
+		for i in xrange(0,size*2):
 			if (opSequence[i] == True):
 				#insertion
 				queue.enqueue(numbers[index], True)
@@ -241,7 +243,7 @@ class OperationController:
 		opSequence = [] #True = add, False = delete
 		insertions = 0
 		deletions = 0
-		for i in range(0,size*2):
+		for i in xrange(0,size*2):
 			if (insertions >= size):
 				opSequence.append(False)
 				deletions += 1

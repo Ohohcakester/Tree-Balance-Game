@@ -1,6 +1,7 @@
+from __future__ import absolute_import
 import gameglobals
 
-class EventSequence:
+class EventSequence(object):
 	def __init__(self):
 		self.seqNo = 0
 		self.gameEvents = []
@@ -51,7 +52,7 @@ class EventSequence:
 		return False
 
 
-class GameEvent:
+class GameEvent(object):
 	def __init__(self, seqNo, condition, action):
 		self.seqNo = seqNo
 		self.condition = condition

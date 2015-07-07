@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import sys, pygame
 import keyinput, treemanager, draw, playercontrol
 import gameglobals, cameracontrols, maincontroller

@@ -1,7 +1,8 @@
+from __future__ import absolute_import
 import gameglobals
-from queue import Queue
+from Queue import Queue
 
-class AnimationTimer:
+class AnimationTimer(object):
 
 	def __init__(self):
 		self.frame = 0
@@ -19,7 +20,7 @@ class AnimationTimer:
 		self.animating = True
 
 
-class EdgeLine:
+class EdgeLine(object):
 
 	def __init__(self, position, animationTimer, fromNode, toNode):
 		self.fromPosition = list(position)
@@ -34,7 +35,7 @@ class EdgeLine:
 		self.toNode = toNode
 
 	def update(self):
-		for i in range (0,2):
+		for i in xrange (0,2):
 			diff = self.fromTargetPosition[i] - self.fromOriginalPosition[i]
 			diff *= self.animationTimer.frame
 			diff //= self.animationTimer.maxFrame
@@ -70,7 +71,7 @@ class EdgeLine:
 		self.toNode = newNode
 
 	def reposition(self):
-		for i in range (0,2):
+		for i in xrange (0,2):
 			self.fromOriginalPosition[i] = self.fromPosition[i]
 			self.fromTargetPosition[i] = self.fromNode.position[i]
 			self.toOriginalPosition[i] = self.toPosition[i]
@@ -78,7 +79,7 @@ class EdgeLine:
 
 
 
-class NodeCircle:
+class NodeCircle(object):
 
 	def __init__(self, position, size, animationTimer, index):
 		self.position = list(position)
@@ -91,19 +92,19 @@ class NodeCircle:
 		self.renderedBalance = None
 
 	def update(self):
-		for i in range (0,2):
+		for i in xrange (0,2):
 			diff = self.targetPosition[i] - self.originalPosition[i]
 			diff *= self.animationTimer.frame
 			diff //= self.animationTimer.maxFrame
 			self.position[i] = self.originalPosition[i] + diff
 
 	def relocate(self, targetPosition):
-		for i in range (0,2):
+		for i in xrange (0,2):
 			self.originalPosition[i] = self.position[i]
 			self.targetPosition[i] = targetPosition[i]
 
 
-class TreeNode:
+class TreeNode(object):
 	#parent, left, right, NodeCircle
 	def __init__(self, data, parent, left, right, index):
 		self.data = data
@@ -120,7 +121,7 @@ class TreeNode:
 		self.parentEdge = parentEdge
 
 
-class Tree:
+class Tree(object):
 	middleWidth = 15
 	halfCircleWidth = 25
 	circleSize = 20
@@ -178,7 +179,7 @@ class Tree:
 		return node
 
 	def indexOf(self, data):
-		for i in range (0,len(self.treeNodes)):
+		for i in xrange (0,len(self.treeNodes)):
 			if self.treeNodes[i].data == data:
 				return i
 		return None
@@ -353,14 +354,14 @@ class Tree:
 
 	def printInOrder(self):
 		output = self.inOrderToString(self.root)
-		print(output)
+		print output
 
 	def inOrderToString(self, node):
 		if (node == None):
-			return ""
+			return u""
 		else:
-			return self.inOrderToString(node.left) + " " + \
-				str(self.nodeCircles[node.index].targetPosition) + " " + self.inOrderToString(node.right) 
+			return self.inOrderToString(node.left) + u" " + \
+				unicode(self.nodeCircles[node.index].targetPosition) + u" " + self.inOrderToString(node.right) 
 
 	def recomputeBalancesUpdateHeight(self):
 		self.height = self.computeBalanceReturnHeight(self.root)
@@ -429,7 +430,7 @@ class Tree:
 
 	def updatePositions(self):
 		self.animationTimer.reset()
-		for i in range (0,len(self.treeNodes)):
+		for i in xrange (0,len(self.treeNodes)):
 			self.nodeCircles[i].relocate(self.treeNodes[i].position)
 		for edgeLine in self.edgeLines:
 			edgeLine.reposition()
@@ -457,7 +458,7 @@ class Tree:
 		leNodes = [-1]*len(levelOrder)
 		leNodes[0] = self.root
 		free = 1
-		for i in range(0,len(levelOrder)):
+		for i in xrange(0,len(levelOrder)):
 			if leNodes[i].data != levelOrder[i]:
 				return False
 			if leNodes[i].left != None:
