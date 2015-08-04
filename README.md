@@ -11,10 +11,17 @@ Go to the [Release Page](https://github.com/Ohohcakester/Tree-Balance-Game/relea
 
 Setup
 =================
+#### Python 3.4 (Recommended)
 1. Install [Python 3](https://www.python.org/downloads/) and [PyGame](http://pygame.org/download.shtml) (Python 3.4.2 recommended, might work with earlier versions of Python 3)
 2. Run ```python main.py``` in the src directory.
 
-Alternatively, a pre-compiled version is also available in the release page.
+#### Python 2.7
+A version of the source code for Python 2.7 is available on the [Python2](https://github.com/Ohohcakester/Tree-Balance-Game/tree/Python2) branch.
+* Converted using [3to2](https://pypi.python.org/pypi/3to2/1.1.1).
+* The package [enum34](https://pypi.python.org/pypi/enum34) is required.
+
+
+**Alternatively, a pre-compiled version is also available in the [release page](https://github.com/Ohohcakester/Tree-Balance-Game/releases).**
 
 
 Gameplay
