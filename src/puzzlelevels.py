@@ -167,7 +167,7 @@ class Stage10:
 		self.objective = 'One node with balance 3, one node with balance -3.'
 		
 		#optimal = ?
-		self.gold = 4
+		self.gold = 3
 		self.par = 8
 
 	def winCondition(self, tree):
